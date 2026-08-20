@@ -3,400 +3,641 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Дике Поле: Бункер</title>
+<title>Фронт: Командування</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root{
-    --bg-0:#0b0d0a;
-    --bg-1:#12140f;
-    --bg-2:#1a1d15;
-    --line:#2c3122;
-    --rust:#c9622a;
-    --rust-dim:#7a3c1c;
-    --toxic:#9fd63a;
-    --uranium:#c8e84a;
-    --titan:#8fb8c9;
-    --text:#e7e6df;
-    --text-dim:#8b8f7f;
+    --bg-0:#0a0c0e;
+    --bg-1:#111417;
+    --bg-2:#181c20;
+    --line:#262b30;
+    --steel:#4a6d8c;
+    --steel-dim:#2c4258;
+    --olive:#7a8c5a;
+    --amber:#e8a23c;
+    --text:#e5e7e6;
+    --text-dim:#828a8f;
     --danger:#d1453b;
+    --gold:#f5c842;
+    --infantry:#8bc98f;
+    --armor:#c9a24a;
+    --arty:#e8654a;
+    --air:#5aa8e8;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{
     margin:0; padding:0; height:100%;
-    background:
-      radial-gradient(ellipse at 50% -10%, #23281a 0%, var(--bg-0) 60%);
+    background:radial-gradient(ellipse at 50% -10%, #1a2126 0%, var(--bg-0) 60%);
     color:var(--text);
     font-family:'Courier New', ui-monospace, monospace;
     overflow-x:hidden;
   }
   body{
-    display:flex; flex-direction:column;
-    min-height:100vh;
+    display:flex; flex-direction:column; min-height:100vh;
     background-image:
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 2px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 2px);
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, transparent 1px, transparent 2px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0px, transparent 1px, transparent 2px);
   }
-
-  /* HEADER */
   header{
-    padding:14px 16px 10px;
-    border-bottom:1px solid var(--line);
+    padding:14px 16px 10px; border-bottom:1px solid var(--line);
     background:linear-gradient(180deg, var(--bg-1), transparent);
   }
-  .eyebrow{
-    font-size:10px; letter-spacing:3px; color:var(--rust);
-    text-transform:uppercase; margin-bottom:4px;
-  }
-  .title{
-    font-size:20px; font-weight:700; letter-spacing:1px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .title .dot{
-    width:7px; height:7px; border-radius:50%;
-    background:var(--toxic); box-shadow:0 0 8px var(--toxic);
-    animation:pulse 2s infinite;
-  }
+  .eyebrow{font-size:10px; letter-spacing:3px; color:var(--steel); text-transform:uppercase; margin-bottom:4px;}
+  .title{font-size:19px; font-weight:700; letter-spacing:1px; display:flex; align-items:center; gap:8px;}
+  .title .dot{width:7px; height:7px; border-radius:50%; background:var(--olive); box-shadow:0 0 8px var(--olive); animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
   .sector{font-size:11px; color:var(--text-dim); margin-top:2px;}
 
-  /* RESOURCE BAR */
   .resources{
-    display:flex; gap:8px; padding:10px 16px;
-    border-bottom:1px solid var(--line);
-    background:var(--bg-1);
+    display:flex; gap:6px; padding:8px 12px; border-bottom:1px solid var(--line);
+    background:var(--bg-1); flex-wrap:wrap; justify-content:center;
   }
-  .res-card{
-    flex:1; background:var(--bg-2); border:1px solid var(--line);
-    border-radius:6px; padding:8px 10px; position:relative; overflow:hidden;
-  }
-  .res-card::before{
-    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-  }
-  .res-card.uranium::before{background:var(--uranium); box-shadow:0 0 6px var(--uranium);}
-  .res-card.titan::before{background:var(--titan); box-shadow:0 0 6px var(--titan);}
-  .res-label{font-size:9px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;}
-  .res-val{font-size:18px; font-weight:700; margin-top:2px; font-variant-numeric:tabular-nums;}
-  .res-rate{font-size:10px; color:var(--toxic); margin-top:2px;}
+  .res-card{flex:1; background:var(--bg-2); border:1px solid var(--line); border-radius:6px; padding:6px 8px; position:relative; overflow:hidden; min-width:64px;}
+  .res-card::before{content:''; position:absolute; left:0; top:0; bottom:0; width:3px;}
+  .res-card.fuel::before{background:var(--amber);}
+  .res-card.steel::before{background:var(--steel);}
+  .res-card.infantry::before{background:var(--infantry);}
+  .res-card.armor::before{background:var(--armor);}
+  .res-card.arty::before{background:var(--arty);}
+  .res-card.air::before{background:var(--air);}
+  .res-label{font-size:8px; letter-spacing:1px; color:var(--text-dim); text-transform:uppercase;}
+  .res-val{font-size:14px; font-weight:700; margin-top:1px; font-variant-numeric:tabular-nums;}
+  .res-rate{font-size:8px; color:var(--olive); margin-top:1px;}
 
-  /* MAIN GRID */
-  main{flex:1; padding:14px 16px 100px; max-width:520px; width:100%; margin:0 auto;}
+  main{flex:1; padding:12px 14px 100px; max-width:520px; width:100%; margin:0 auto;}
 
   .collect-btn{
-    width:100%; padding:16px; margin-bottom:16px;
-    background:linear-gradient(180deg, var(--rust), var(--rust-dim));
-    border:1px solid #e07a3f; border-radius:8px;
-    color:#fff; font-family:inherit; font-size:14px; font-weight:700;
-    letter-spacing:2px; text-transform:uppercase;
-    cursor:pointer; position:relative;
-    box-shadow:0 4px 0 var(--rust-dim), 0 6px 14px rgba(0,0,0,.5);
-    transition:transform .06s;
+    width:100%; padding:12px; margin-bottom:10px;
+    background:linear-gradient(180deg, var(--steel), var(--steel-dim));
+    border:1px solid #6f9bc2; border-radius:8px; color:#fff; font-family:inherit;
+    font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    cursor:pointer; box-shadow:0 4px 0 var(--steel-dim), 0 6px 14px rgba(0,0,0,.5); transition:transform .06s;
   }
-  .collect-btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--rust-dim);}
-  .collect-btn .sub{display:block; font-size:10px; font-weight:400; letter-spacing:1px; color:#ffe0cc; margin-top:3px; text-transform:none;}
+  .collect-btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--steel-dim);}
+  .collect-btn .sub{display:block; font-size:9px; font-weight:400; letter-spacing:1px; color:#dceaf5; margin-top:2px; text-transform:none;}
 
-  .section-label{
-    font-size:10px; letter-spacing:3px; color:var(--text-dim);
-    text-transform:uppercase; margin:18px 0 8px; display:flex; align-items:center; gap:8px;
-  }
+  .section-label{font-size:9px; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px; display:flex; align-items:center; gap:8px;}
   .section-label::after{content:''; flex:1; height:1px; background:var(--line);}
 
-  .building{
-    background:var(--bg-2); border:1px solid var(--line); border-radius:8px;
-    padding:12px; margin-bottom:10px; display:flex; align-items:center; gap:12px;
-  }
-  .b-icon{
-    width:42px; height:42px; border-radius:6px; display:flex; align-items:center; justify-content:center;
-    font-size:20px; flex-shrink:0; border:1px solid var(--line);
-    background:var(--bg-1);
-  }
-  .b-info{flex:1; min-width:0;}
-  .b-name{font-size:13px; font-weight:700;}
-  .b-desc{font-size:10px; color:var(--text-dim); margin-top:2px;}
-  .b-level{font-size:10px; color:var(--toxic); margin-top:3px;}
-  .b-buy{
-    flex-shrink:0; text-align:right; background:none; border:1px solid var(--rust);
-    color:var(--rust); border-radius:6px; padding:8px 10px; font-family:inherit;
-    font-size:11px; cursor:pointer; min-width:78px;
-  }
-  .b-buy:disabled{border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
-  .b-buy .cost-line{display:block; font-size:10px; margin-top:2px;}
+  .card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
+  .card-icon{width:38px; height:38px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
+  .card-info{flex:1; min-width:0;}
+  .card-name{font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
+  .card-desc{font-size:9px; color:var(--text-dim); margin-top:1px;}
+  .card-level{font-size:9px; color:var(--olive); margin-top:2px;}
+  .card-btn{flex-shrink:0; text-align:center; background:none; border:1px solid var(--steel); color:var(--steel); border-radius:6px; padding:6px 8px; font-family:inherit; font-size:10px; cursor:pointer; min-width:64px;}
+  .card-btn:disabled{border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
+  .card-btn .cost-line{display:block; font-size:8px; margin-top:1px;}
 
-  .log{
-    background:var(--bg-1); border:1px solid var(--line); border-radius:6px;
-    padding:8px 10px; font-size:10px; color:var(--text-dim);
-    max-height:70px; overflow-y:auto; margin-top:16px;
-  }
+  .card-btn.deploy{background:linear-gradient(180deg, #3a5240, #1f2f26); border-color:var(--olive); color:var(--olive);}
+  .card-btn.deploy:disabled{background:var(--bg-1); border-color:#3a3d33; color:#565a4b;}
+
+  .progress-wrap{width:100%; height:5px; background:var(--bg-1); border-radius:3px; overflow:hidden; margin-top:5px;}
+  .progress-bar{height:100%; background:linear-gradient(90deg, var(--steel), var(--olive)); transition:width .3s linear;}
+  .timer-text{font-size:9px; color:var(--amber); margin-top:3px; font-variant-numeric:tabular-nums;}
+
+  .supply-card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
+  .supply-card.available{border-color:var(--gold); box-shadow:0 0 0 1px rgba(245,200,66,0.2);}
+  .supply-card.missed{opacity:.55;}
+  .supply-icon{width:38px; height:38px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
+  .supply-info{flex:1; min-width:0;}
+  .supply-time{font-size:12px; font-weight:700;}
+  .supply-desc{font-size:9px; color:var(--text-dim); margin-top:1px;}
+  .supply-status{font-size:9px; margin-top:3px; font-variant-numeric:tabular-nums;}
+  .supply-status.wait{color:var(--text-dim);}
+  .supply-status.open{color:var(--gold);}
+  .supply-status.missed{color:var(--danger);}
+  .supply-btn{flex-shrink:0; text-align:center; background:linear-gradient(180deg, #6b5a1f, #423412); border:1px solid var(--gold); color:var(--gold); border-radius:6px; padding:8px 10px; font-family:inherit; font-size:10px; font-weight:700; cursor:pointer; min-width:70px;}
+  .supply-btn:disabled{background:var(--bg-1); border-color:#3a3d33; color:#565a4b; cursor:not-allowed; font-weight:400;}
+
+  .log{background:var(--bg-1); border:1px solid var(--line); border-radius:6px; padding:6px 8px; font-size:9px; color:var(--text-dim); max-height:64px; overflow-y:auto; margin-top:12px;}
   .log div{margin-bottom:2px;}
-  .log .new{color:var(--toxic);}
+  .log .new{color:var(--olive);}
+  .log .gold{color:var(--gold);}
+  .log .danger{color:var(--danger);}
 
-  footer{
-    position:fixed; bottom:0; left:0; right:0;
-    background:var(--bg-1); border-top:1px solid var(--line);
-    padding:10px 16px; display:flex; justify-content:space-around;
-    max-width:520px; margin:0 auto; width:100%;
-  }
-  .nav-item{
-    display:flex; flex-direction:column; align-items:center; gap:2px;
-    font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;
-  }
-  .nav-item.active{color:var(--rust);}
-  .nav-icon{font-size:16px;}
+  footer{position:fixed; bottom:0; left:0; right:0; background:var(--bg-1); border-top:1px solid var(--line); padding:8px 12px; display:flex; justify-content:space-around; max-width:520px; margin:0 auto; width:100%;}
+  .nav-item{display:flex; flex-direction:column; align-items:center; gap:1px; font-size:8px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;}
+  .nav-item.active{color:var(--steel);}
+  .nav-icon{font-size:14px;}
 
-  ::-webkit-scrollbar{width:4px;}
+  ::-webkit-scrollbar{width:3px;}
   ::-webkit-scrollbar-thumb{background:var(--line);}
+
+  .reward-popup{position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-1); border:2px solid var(--gold); border-radius:12px; padding:20px 24px; text-align:center; z-index:999; box-shadow:0 0 60px rgba(245,200,66,0.2); animation:pop .3s ease-out; max-width:280px; width:90%;}
+  @keyframes pop{0%{transform:translate(-50%,-50%) scale(0.8); opacity:0;}100%{transform:translate(-50%,-50%) scale(1); opacity:1;}}
+  .reward-popup .big{font-size:32px; margin:4px 0;}
+  .reward-popup .desc{font-size:13px; color:var(--text);}
+  .reward-popup .sub{font-size:11px; color:var(--text-dim); margin-top:4px;}
+  .reward-popup .close-btn{margin-top:12px; padding:6px 20px; background:var(--steel); border:none; border-radius:6px; color:#fff; font-family:inherit; font-size:12px; cursor:pointer;}
+  .overlay{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:998;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eyebrow">Дике Поле // Ядерний сектор</div>
-  <div class="title"><span class="dot"></span>Бункер-17 «Стрілець»</div>
-  <div class="sector">Координати: X-42 / Y-19 &nbsp;·&nbsp; Гравець: <span id="playerName">Отаман</span></div>
+  <div class="eyebrow">Оперативний штаб // Сектор Північ</div>
+  <div class="title"><span class="dot"></span>База "Рубіж-9"</div>
+  <div class="sector">Координати: 51.2N / 30.8E &nbsp;·&nbsp; Командир: <span id="playerName">Офіцер</span></div>
 </header>
 
-<div class="resources">
-  <div class="res-card uranium">
-    <div class="res-label">Уран</div>
-    <div class="res-val" id="uraniumVal">0</div>
-    <div class="res-rate" id="uraniumRate">+0/сек</div>
-  </div>
-  <div class="res-card titan">
-    <div class="res-label">Титан</div>
-    <div class="res-val" id="titanVal">0</div>
-    <div class="res-rate" id="titanRate">+0/сек</div>
-  </div>
-</div>
+<div class="resources" id="resourceBar"></div>
 
 <main>
-  <button class="collect-btn" id="collectBtn">
-    Зібрати ресурси
-    <span class="sub">+5 Уран · +5 Титан за клік</span>
-  </button>
+  <div class="section-label">📦 Постачання за розкладом</div>
+  <div id="supplyContainer"></div>
 
-  <div class="section-label">Споруди</div>
+  <div class="section-label">🎯 Райони бойових дій</div>
+  <div id="deployContainer"></div>
 
-  <div class="building">
-    <div class="b-icon">🏭</div>
-    <div class="b-info">
-      <div class="b-name">Командний центр</div>
-      <div class="b-desc">Розблоковує нові будівлі, підвищує ліміт складу</div>
-      <div class="b-level">Рівень <span id="hqLevel">1</span></div>
+  <div class="section-label">☢️ Стратегічні об'єкти</div>
+  <div id="prizeContainer"></div>
+
+  <div class="section-label">🏗️ Інфраструктура</div>
+
+  <div class="card">
+    <div class="card-icon">🏛️</div>
+    <div class="card-info">
+      <div class="card-name">Штаб командування</div>
+      <div class="card-desc">Відкриває нові роди військ</div>
+      <div class="card-level">Рівень <span id="hqLevel">1</span></div>
     </div>
-    <button class="b-buy" id="hqBuy">Покращити<span class="cost-line" id="hqCost"></span></button>
+    <button class="card-btn" id="hqBuy">Покращити<span class="cost-line" id="hqCost"></span></button>
   </div>
 
-  <div class="building">
-    <div class="b-icon">☢️</div>
-    <div class="b-info">
-      <div class="b-name">Шахта урану</div>
-      <div class="b-desc">Пасивний видобуток урану щосекунди</div>
-      <div class="b-level">Рівень <span id="mineLevel">0</span></div>
+  <div class="card">
+    <div class="card-icon">⛽</div>
+    <div class="card-info">
+      <div class="card-name">Паливна база</div>
+      <div class="card-desc">Пасивне постачання пального</div>
+      <div class="card-level">Рівень <span id="fuelLevel">0</span></div>
     </div>
-    <button class="b-buy" id="mineBuy">Побудувати<span class="cost-line" id="mineCost"></span></button>
+    <button class="card-btn" id="fuelBuy">Побудувати<span class="cost-line" id="fuelCost"></span></button>
   </div>
 
-  <div class="building">
-    <div class="b-icon">⚙️</div>
-    <div class="b-info">
-      <div class="b-name">Завод титану</div>
-      <div class="b-desc">Пасивний видобуток титану щосекунди</div>
-      <div class="b-level">Рівень <span id="titanMineLevel">0</span></div>
+  <div class="card">
+    <div class="card-icon">🏗️</div>
+    <div class="card-info">
+      <div class="card-name">Металургійний завод</div>
+      <div class="card-desc">Пасивне постачання сталі</div>
+      <div class="card-level">Рівень <span id="steelLevel">0</span></div>
     </div>
-    <button class="b-buy" id="titanMineBuy">Побудувати<span class="cost-line" id="titanMineCost"></span></button>
+    <button class="card-btn" id="steelBuy">Побудувати<span class="cost-line" id="steelCost"></span></button>
   </div>
 
-  <div class="building">
-    <div class="b-icon">🛡️</div>
-    <div class="b-info">
-      <div class="b-name">Оборонна турель</div>
-      <div class="b-desc">Захищає бункер від рейдів інших гравців</div>
-      <div class="b-level">Рівень <span id="turretLevel">0</span></div>
+  <div class="card">
+    <div class="card-icon">🛡️</div>
+    <div class="card-info">
+      <div class="card-name">ППО периметру</div>
+      <div class="card-desc">Захист бази від контратак</div>
+      <div class="card-level">Рівень <span id="turretLevel">0</span></div>
     </div>
-    <button class="b-buy" id="turretBuy">Побудувати<span class="cost-line" id="turretCost"></span></button>
+    <button class="card-btn" id="turretBuy">Побудувати<span class="cost-line" id="turretCost"></span></button>
   </div>
 
-  <div class="section-label">Журнал бункера</div>
-  <div class="log" id="log">
-    <div>Система запущена. Ласкаво просимо, Отамане.</div>
-  </div>
+  <div class="section-label">📜 Журнал операцій</div>
+  <div class="log" id="log"><div>Зв'язок встановлено. Штаб на зв'язку, командире.</div></div>
 </main>
 
 <footer>
   <div class="nav-item active"><span class="nav-icon">🏠</span>База</div>
   <div class="nav-item"><span class="nav-icon">🗺️</span>Карта</div>
   <div class="nav-item"><span class="nav-icon">⚔️</span>Рейди</div>
-  <div class="nav-item"><span class="nav-icon">👥</span>Клан</div>
+  <div class="nav-item"><span class="nav-icon">👥</span>Альянс</div>
 </footer>
+
+<div id="rewardPopup" style="display:none;">
+  <div class="overlay" id="popupOverlay"></div>
+  <div class="reward-popup">
+    <div class="big" id="rewardEmoji">🎯</div>
+    <div class="desc" id="rewardDesc">Отримано!</div>
+    <div class="sub" id="rewardSub"></div>
+    <button class="close-btn" id="popupClose">Прийнято</button>
+  </div>
+</div>
 
 <script>
 (function(){
-  // --- Telegram WebApp integration (safe fallback if opened outside Telegram) ---
+  // --- Telegram WebApp ---
   let tg = null;
   try{
     if(window.Telegram && window.Telegram.WebApp){
       tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
+      tg.ready(); tg.expand();
       const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
-      if(user && user.first_name){
-        document.getElementById('playerName').textContent = user.first_name;
-      }
-      if(tg.themeParams && tg.themeParams.bg_color){
-        // optional: could adapt to telegram theme, but we keep signature dark militaristic look
-      }
+      if(user && user.first_name) document.getElementById('playerName').textContent = user.first_name;
     }
-  }catch(e){ console.warn('Telegram WebApp SDK not available:', e); }
+  }catch(e){}
 
-  // --- Game state ---
-  const STORAGE_KEY = 'loca_deserta_bunker_save_v1';
+  // --- UNIT TYPES (4 roди військ) ---
+  const UNITS = [
+    { id:'infantry', label:'Піхота', icon:'🪖', hqReq:1, color:'#8bc98f' },
+    { id:'armor', label:'Бронетехніка', icon:'🚛', hqReq:2, color:'#c9a24a' },
+    { id:'arty', label:'Артилерія', icon:'💥', hqReq:3, color:'#e8654a' },
+    { id:'air', label:'Авіація', icon:'✈️', hqReq:4, color:'#5aa8e8' }
+  ];
+
+  // --- SUPPLY WINDOWS: фіксовані вікна доби, "зайшов вчасно — забрав, інакше пропустив" ---
+  // hour = година початку вікна (0-23, локальний час пристрою), windowMin = скільки хвилин вікно відкрите
+  const SUPPLY_WINDOWS = [
+    { id:'sw1', hour:9,  windowMin:60, icon:'🌅', label:'Ранковий конвой',  fuel:30, steel:30, unit:'infantry', amount:20 },
+    { id:'sw2', hour:13, windowMin:60, icon:'☀️', label:'Обідній конвой',   fuel:40, steel:40, unit:'armor',    amount:6  },
+    { id:'sw3', hour:18, windowMin:60, icon:'🌆', label:'Вечірній конвой',  fuel:50, steel:50, unit:'arty',     amount:4  },
+    { id:'sw4', hour:22, windowMin:60, icon:'🌙', label:'Нічний конвой',    fuel:60, steel:60, unit:'air',      amount:2  }
+  ];
+
+  // --- DEPLOYMENT ZONES: відправляєш загін, чекаєш, отримуєш військо ---
+  const DEPLOY_ZONES = [
+    { id:'dz1', name:'Степовий рубіж', icon:'🌾', unit:'infantry', amount:15, seconds:30, costFuel:5, costSteel:5 },
+    { id:'dz2', name:'Прикордонний пост', icon:'🚧', unit:'infantry', amount:25, seconds:60, costFuel:10, costSteel:10 },
+    { id:'dz3', name:'Танковий полігон', icon:'🏭', unit:'armor', amount:8, seconds:60, costFuel:20, costSteel:15 },
+    { id:'dz4', name:'Артилерійська позиція', icon:'⛰️', unit:'arty', amount:5, seconds:75, costFuel:30, costSteel:20 },
+    { id:'dz5', name:'Польовий аеродром', icon:'🛬', unit:'air', amount:3, seconds:90, costFuel:45, costSteel:30 }
+  ];
+
+  // --- PRIZE OBJECTS: вкладаєш ресурси, чекаєш, шанс на джекпот ---
+  const PRIZE_ZONES = [
+    { id:'pz1', name:'Покинутий склад', icon:'📦', seconds:40, costFuel:50, costSteel:50 },
+    { id:'pz2', name:'Радіолокаційна станція', icon:'📡', seconds:90, costFuel:120, costSteel:100 },
+    { id:'pz3', name:'Секретний бункер', icon:'☢️', seconds:180, costFuel:300, costSteel:250 }
+  ];
+
+  // --- STATE ---
+  const STORAGE_KEY = 'front_command_v1';
   let state = {
-    uranium: 0,
-    titan: 0,
-    hqLevel: 1,
-    mineLevel: 0,
-    titanMineLevel: 0,
-    turretLevel: 0,
-    lastTick: Date.now()
+    fuel: 40, steel: 40,
+    hqLevel: 1, fuelLevel: 0, steelLevel: 0, turretLevel: 0,
+    lastTick: Date.now(),
+    units: { infantry: 0, armor: 0, arty: 0, air: 0 },
+    deployJobs: {},   // dzId: { startedAt, finishAt }
+    prizeJobs: {},    // pzId: { startedAt, finishAt }
+    claimedWindows: {} // "sw1-2026-08-20": true  (windowId-dateStr, вже забрано сьогодні)
   };
-
-  const saved = localStororage_safe_load();
+  const saved = safeLoad();
   if(saved) state = Object.assign(state, saved);
+  if(!state.claimedWindows) state.claimedWindows = {};
 
-  function localStororage_safe_load(){
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    }catch(e){ return null; }
-  }
-  function save(){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-  }
+  function safeLoad(){ try{ const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+  function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
 
-  // offline progress
-  const now = Date.now();
-  const elapsedSec = Math.min(3600, Math.floor((now - (state.lastTick||now))/1000));
-  if(elapsedSec > 0){
-    state.uranium += elapsedSec * uraniumRate();
-    state.titan += elapsedSec * titanRate();
-  }
-  state.lastTick = now;
-
-  function uraniumRate(){ return state.mineLevel * 2; }
-  function titanRate(){ return state.titanMineLevel * 2; }
-
+  // Паливна база / Металургійний завод більше НЕ дають пасивний дохід щосекунди.
+  // Натомість кожен рівень дає +10% до нагороди Паливо/Сталь у вікнах постачання.
+  function fuelBonusPct(){ return state.fuelLevel * 10; }
+  function steelBonusPct(){ return state.steelLevel * 10; }
   function cost(base, level){ return Math.round(base * Math.pow(1.55, level)); }
+  function fmt(n){ n = Math.floor(n); return n.toLocaleString('uk-UA'); }
+  function dateKey(d){ return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
 
-  const els = {
-    uraniumVal: document.getElementById('uraniumVal'),
-    titanVal: document.getElementById('titanVal'),
-    uraniumRate: document.getElementById('uraniumRate'),
-    titanRate: document.getElementById('titanRate'),
-    hqLevel: document.getElementById('hqLevel'),
-    mineLevel: document.getElementById('mineLevel'),
-    titanMineLevel: document.getElementById('titanMineLevel'),
-    turretLevel: document.getElementById('turretLevel'),
-    hqCost: document.getElementById('hqCost'),
-    mineCost: document.getElementById('mineCost'),
-    titanMineCost: document.getElementById('titanMineCost'),
-    turretCost: document.getElementById('turretCost'),
-    log: document.getElementById('log')
-  };
+  // --- OFFLINE: жодного пасивного нарахування. Лише розв'язуємо активні таймери (deploy/prize), поки гравця не було. ---
+  const now0 = Date.now();
+  state.lastTick = now0;
 
-  function fmt(n){
-    n = Math.floor(n);
-    return n.toLocaleString('uk-UA');
-  }
+  // resolve any deploy/prize jobs finished while offline
+  let offlineCompletions = [];
+  Object.keys(state.deployJobs).forEach(id=>{
+    const job = state.deployJobs[id];
+    if(job && now0 >= job.finishAt){
+      const zone = DEPLOY_ZONES.find(z=>z.id===id);
+      if(zone){
+        state.units[zone.unit] = (state.units[zone.unit]||0) + zone.amount;
+        offlineCompletions.push(zone.name + ': +' + zone.amount + ' ' + UNITS.find(u=>u.id===zone.unit).label);
+      }
+      delete state.deployJobs[id];
+    }
+  });
 
-  function addLog(text){
+  const els = { log: document.getElementById('log') };
+  function addLog(text, cls='new'){
     const div = document.createElement('div');
-    div.className = 'new';
-    div.textContent = '› ' + text;
+    div.className = cls; div.textContent = '› ' + text;
     els.log.prepend(div);
-    while(els.log.children.length > 20) els.log.removeChild(els.log.lastChild);
+    while(els.log.children.length > 30) els.log.removeChild(els.log.lastChild);
+  }
+  offlineCompletions.forEach(t => addLog('✅ Загін прибув: ' + t, 'gold'));
+
+  function showReward(emoji, desc, sub=''){
+    document.getElementById('rewardEmoji').textContent = emoji;
+    document.getElementById('rewardDesc').textContent = desc;
+    document.getElementById('rewardSub').textContent = sub;
+    document.getElementById('rewardPopup').style.display = 'block';
+    try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success'); }catch(e){}
+  }
+  document.getElementById('popupClose').addEventListener('click', ()=>{ document.getElementById('rewardPopup').style.display='none'; });
+  document.getElementById('popupOverlay').addEventListener('click', ()=>{ document.getElementById('rewardPopup').style.display='none'; });
+
+  // resolve prize jobs offline
+  Object.keys(state.prizeJobs).forEach(id=>{
+    const job = state.prizeJobs[id];
+    if(job && now0 >= job.finishAt){
+      resolvePrize(id, true);
+      delete state.prizeJobs[id];
+    }
+  });
+
+  function resolvePrize(pzId, silent){
+    const zone = PRIZE_ZONES.find(z=>z.id===pzId);
+    if(!zone) return;
+    const roll = Math.random();
+    let emoji='🎯', desc='', sub='', fuelR=0, steelR=0;
+    const scale = zone.id === 'pz3' ? 4 : (zone.id === 'pz2' ? 2 : 1);
+
+    if(roll < 0.08){
+      fuelR = (600 + Math.floor(Math.random()*400)) * scale;
+      steelR = (400 + Math.floor(Math.random()*300)) * scale;
+      emoji='💥'; desc='СТРАТЕГІЧНИЙ УДАР!'; sub='+'+fmt(fuelR)+' Паливо · +'+fmt(steelR)+' Сталь';
+      addLog('💥 ' + zone.name + ': СТРАТЕГІЧНИЙ УДАР! +'+fmt(fuelR)+' П +'+fmt(steelR)+' С', 'gold');
+    } else if(roll < 0.28){
+      fuelR = (150 + Math.floor(Math.random()*200)) * scale;
+      steelR = (120 + Math.floor(Math.random()*180)) * scale;
+      emoji='🔥'; desc='Великий здобуток'; sub='+'+fmt(fuelR)+' Паливо · +'+fmt(steelR)+' Сталь';
+      addLog('🔥 ' + zone.name + ': +'+fmt(fuelR)+' П +'+fmt(steelR)+' С', 'gold');
+    } else if(roll < 0.55){
+      const unitId = ['infantry','armor','arty','air'][Math.floor(Math.random()*4)];
+      const bonus = (5 + Math.floor(Math.random()*15)) * scale;
+      state.units[unitId] = (state.units[unitId]||0) + bonus;
+      const label = UNITS.find(u=>u.id===unitId).label;
+      emoji='🎖️'; desc='+' + bonus + ' ' + label; sub='Підкріплення прибуло';
+      addLog('🎖️ ' + zone.name + ': +' + bonus + ' ' + label, 'new');
+    } else {
+      fuelR = (40 + Math.floor(Math.random()*80)) * scale;
+      steelR = (30 + Math.floor(Math.random()*70)) * scale;
+      emoji='📦'; desc='Трофеї'; sub='+'+fmt(fuelR)+' Паливо · +'+fmt(steelR)+' Сталь';
+      addLog('📦 ' + zone.name + ': +'+fmt(fuelR)+' П +'+fmt(steelR)+' С', 'new');
+    }
+    state.fuel += fuelR; state.steel += steelR;
+    if(!silent) showReward(emoji, desc, sub);
   }
 
-  function render(){
-    els.uraniumVal.textContent = fmt(state.uranium);
-    els.titanVal.textContent = fmt(state.titan);
-    els.uraniumRate.textContent = '+' + uraniumRate() + '/сек';
-    els.titanRate.textContent = '+' + titanRate() + '/сек';
-    els.hqLevel.textContent = state.hqLevel;
-    els.mineLevel.textContent = state.mineLevel;
-    els.titanMineLevel.textContent = state.titanMineLevel;
-    els.turretLevel.textContent = state.turretLevel;
+  // --- RESOURCE BAR (жодних /сек — ресурси й війська приходять лише з дій гравця) ---
+  function renderResourceBar(){
+    const resources = [
+      { label:'Паливо', val: state.fuel, cls:'fuel' },
+      { label:'Сталь', val: state.steel, cls:'steel' }
+    ];
+    UNITS.forEach(u=>{
+      resources.push({ label: u.icon+' '+u.label, val: state.units[u.id]||0, cls: u.id });
+    });
+    let html='';
+    resources.forEach(r=>{
+      html += `<div class="res-card ${r.cls}"><div class="res-label">${r.label}</div><div class="res-val">${fmt(r.val)}</div></div>`;
+    });
+    document.getElementById('resourceBar').innerHTML = html;
+  }
 
-    const hqC = cost(150, state.hqLevel - 1);
-    const mineC = cost(50, state.mineLevel);
-    const titanC = cost(50, state.titanMineLevel);
+  // --- SUPPLY WINDOWS RENDER ---
+  function windowStatus(w, nowD){
+    const start = new Date(nowD); start.setHours(w.hour,0,0,0);
+    const end = new Date(start.getTime() + w.windowMin*60000);
+    const key = w.id + '-' + dateKey(nowD);
+    const claimedToday = !!state.claimedWindows[key];
+    if(claimedToday) return { phase:'claimed', key, next:null };
+    if(nowD < start) return { phase:'wait', key, next:start };
+    if(nowD >= start && nowD < end) return { phase:'open', key, next:end };
+    return { phase:'missed', key, next:null };
+  }
+  function fmtCountdown(ms){
+    const s = Math.max(0, Math.floor(ms/1000));
+    const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = s%60;
+    return (h>0?h+'г ':'') + m+'хв ' + sec+'с';
+  }
+  function renderSupplyWindows(){
+    const nowD = new Date();
+    let html='';
+    SUPPLY_WINDOWS.forEach(w=>{
+      const st = windowStatus(w, nowD);
+      const fuelR = Math.round(w.fuel * (1 + fuelBonusPct()/100));
+      const steelR = Math.round(w.steel * (1 + steelBonusPct()/100));
+      const unitLabel = UNITS.find(u=>u.id===w.unit).label + ' ' + UNITS.find(u=>u.id===w.unit).icon;
+      let statusCls, statusText, btnDisabled, btnText, cardCls='';
+      if(st.phase==='claimed'){ statusCls='wait'; statusText='Забрано сьогодні · наступне завтра о '+w.hour+':00'; btnDisabled=true; btnText='Забрано'; }
+      else if(st.phase==='wait'){ statusCls='wait'; statusText='Відкриється через ' + fmtCountdown(st.next-nowD); btnDisabled=true; btnText='Ще рано'; }
+      else if(st.phase==='open'){ statusCls='open'; statusText='Відкрито! Залишилось ' + fmtCountdown(st.next-nowD); btnDisabled=false; btnText='Забрати'; cardCls='available'; }
+      else { statusCls='missed'; statusText='Пропущено. Наступне завтра о '+w.hour+':00'; btnDisabled=true; btnText='Пропущено'; cardCls='missed'; }
+      html += `
+        <div class="supply-card ${cardCls}">
+          <div class="supply-icon">${w.icon}</div>
+          <div class="supply-info">
+            <div class="supply-time">${w.label} · ${String(w.hour).padStart(2,'0')}:00</div>
+            <div class="supply-desc">+${fuelR} Паливо · +${steelR} Сталь · +${w.amount} ${unitLabel}</div>
+            <div class="supply-status ${statusCls}">${statusText}</div>
+          </div>
+          <button class="supply-btn" data-claim="${w.id}" ${btnDisabled?'disabled':''}>${btnText}</button>
+        </div>`;
+    });
+    document.getElementById('supplyContainer').innerHTML = html;
+
+    document.querySelectorAll('[data-claim]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const w = SUPPLY_WINDOWS.find(x=>x.id===this.dataset.claim);
+        if(!w) return;
+        const st = windowStatus(w, new Date());
+        if(st.phase !== 'open') return;
+        const fuelR = Math.round(w.fuel * (1 + fuelBonusPct()/100));
+        const steelR = Math.round(w.steel * (1 + steelBonusPct()/100));
+        state.fuel += fuelR; state.steel += steelR;
+        state.units[w.unit] = (state.units[w.unit]||0) + w.amount;
+        state.claimedWindows[st.key] = true;
+        try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success'); }catch(e){}
+        addLog('📦 ' + w.label + ': +'+fuelR+' П +'+steelR+' С +'+w.amount+' '+UNITS.find(u=>u.id===w.unit).label, 'gold');
+        renderAll(); save();
+      });
+    });
+  }
+
+  // --- DEPLOY ZONES RENDER ---
+  function renderDeployZones(){
+    let html='';
+    const nowT = Date.now();
+    DEPLOY_ZONES.forEach(z=>{
+      const job = state.deployJobs[z.id];
+      const unitLabel = UNITS.find(u=>u.id===z.unit).label + ' ' + UNITS.find(u=>u.id===z.unit).icon;
+      if(job){
+        const remain = Math.max(0, job.finishAt - nowT);
+        const total = job.finishAt - job.startedAt;
+        const pct = 100 - Math.round((remain/total)*100);
+        const secLeft = Math.ceil(remain/1000);
+        html += `
+          <div class="card">
+            <div class="card-icon">${z.icon}</div>
+            <div class="card-info">
+              <div class="card-name">${z.name}</div>
+              <div class="card-desc">Формується: ${unitLabel} ×${z.amount}</div>
+              <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
+              <div class="timer-text">${secLeft > 0 ? 'Залишилось: '+secLeft+' сек' : 'Готово!'}</div>
+            </div>
+            <button class="card-btn deploy" data-collect="${z.id}" ${secLeft>0?'disabled':''}>${secLeft>0?'⏳':'Забрати'}</button>
+          </div>`;
+      } else {
+        const canAfford = state.fuel >= z.costFuel && state.steel >= z.costSteel;
+        html += `
+          <div class="card">
+            <div class="card-icon">${z.icon}</div>
+            <div class="card-info">
+              <div class="card-name">${z.name}</div>
+              <div class="card-desc">Дає: ${unitLabel} ×${z.amount} за ${z.seconds} сек</div>
+              <div class="card-level">Вартість: ${z.costFuel} Паливо / ${z.costSteel} Сталь</div>
+            </div>
+            <button class="card-btn deploy" data-deploy="${z.id}" ${!canAfford?'disabled':''}>Відправити</button>
+          </div>`;
+      }
+    });
+    document.getElementById('deployContainer').innerHTML = html;
+
+    document.querySelectorAll('[data-deploy]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const zone = DEPLOY_ZONES.find(z=>z.id===this.dataset.deploy);
+        if(!zone) return;
+        if(state.fuel>=zone.costFuel && state.steel>=zone.costSteel){
+          state.fuel -= zone.costFuel; state.steel -= zone.costSteel;
+          const t0 = Date.now();
+          state.deployJobs[zone.id] = { startedAt: t0, finishAt: t0 + zone.seconds*1000 };
+          addLog('🪖 Загін відправлено: ' + zone.name);
+          renderAll(); save();
+        }
+      });
+    });
+    document.querySelectorAll('[data-collect]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const zone = DEPLOY_ZONES.find(z=>z.id===this.dataset.collect);
+        if(!zone) return;
+        const job = state.deployJobs[zone.id];
+        if(job && Date.now() >= job.finishAt){
+          state.units[zone.unit] = (state.units[zone.unit]||0) + zone.amount;
+          delete state.deployJobs[zone.id];
+          addLog('✅ Прибуло підкріплення: ' + zone.name);
+          renderAll(); save();
+        }
+      });
+    });
+  }
+
+  // --- PRIZE ZONES RENDER ---
+  function renderPrizeZones(){
+    let html='';
+    const nowT = Date.now();
+    PRIZE_ZONES.forEach(z=>{
+      const job = state.prizeJobs[z.id];
+      if(job){
+        const remain = Math.max(0, job.finishAt - nowT);
+        const total = job.finishAt - job.startedAt;
+        const pct = 100 - Math.round((remain/total)*100);
+        const secLeft = Math.ceil(remain/1000);
+        html += `
+          <div class="card">
+            <div class="card-icon">${z.icon}</div>
+            <div class="card-info">
+              <div class="card-name">${z.name}</div>
+              <div class="card-desc">Розвідка триває...</div>
+              <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
+              <div class="timer-text">${secLeft > 0 ? 'Залишилось: '+secLeft+' сек' : 'Готово!'}</div>
+            </div>
+            <button class="card-btn deploy" data-prize-collect="${z.id}" ${secLeft>0?'disabled':''}>${secLeft>0?'⏳':'Отримати'}</button>
+          </div>`;
+      } else {
+        const canAfford = state.fuel >= z.costFuel && state.steel >= z.costSteel;
+        html += `
+          <div class="card">
+            <div class="card-icon">${z.icon}</div>
+            <div class="card-info">
+              <div class="card-name">${z.name}</div>
+              <div class="card-desc">Вкладення ресурсів → шанс на великий трофей за ${z.seconds} сек</div>
+              <div class="card-level">Вартість: ${z.costFuel} Паливо / ${z.costSteel} Сталь</div>
+            </div>
+            <button class="card-btn deploy" data-prize="${z.id}" ${!canAfford?'disabled':''}>Вкласти</button>
+          </div>`;
+      }
+    });
+    document.getElementById('prizeContainer').innerHTML = html;
+
+    document.querySelectorAll('[data-prize]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const zone = PRIZE_ZONES.find(z=>z.id===this.dataset.prize);
+        if(!zone) return;
+        if(state.fuel>=zone.costFuel && state.steel>=zone.costSteel){
+          state.fuel -= zone.costFuel; state.steel -= zone.costSteel;
+          const t0 = Date.now();
+          state.prizeJobs[zone.id] = { startedAt: t0, finishAt: t0 + zone.seconds*1000 };
+          addLog('☢️ Розвідку розпочато: ' + zone.name);
+          renderAll(); save();
+        }
+      });
+    });
+    document.querySelectorAll('[data-prize-collect]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const id = this.dataset.prizeCollect;
+        const job = state.prizeJobs[id];
+        if(job && Date.now() >= job.finishAt){
+          resolvePrize(id, false);
+          delete state.prizeJobs[id];
+          renderAll(); save();
+        }
+      });
+    });
+  }
+
+  // --- BUILDINGS ---
+  function renderBuildings(){
+    document.getElementById('hqLevel').textContent = state.hqLevel;
+    document.getElementById('fuelLevel').textContent = state.fuelLevel;
+    document.getElementById('steelLevel').textContent = state.steelLevel;
+    document.getElementById('turretLevel').textContent = state.turretLevel;
+
+    const hqC = cost(150, state.hqLevel-1);
+    const fuelC = cost(50, state.fuelLevel);
+    const steelC = cost(50, state.steelLevel);
     const turretC = cost(80, state.turretLevel);
 
-    els.hqCost.textContent = hqC + ' ур. / ' + hqC + ' тит.';
-    els.mineCost.textContent = mineC + ' тит.';
-    els.titanMineCost.textContent = titanC + ' ур.';
-    els.turretCost.textContent = turretC + ' ур. / ' + Math.round(turretC*0.6) + ' тит.';
+    document.getElementById('hqCost').textContent = hqC+'П / '+hqC+'С';
+    document.getElementById('fuelCost').textContent = fuelC+'С';
+    document.getElementById('steelCost').textContent = steelC+'П';
+    document.getElementById('turretCost').textContent = turretC+'П / '+Math.round(turretC*0.6)+'С';
 
-    document.getElementById('hqBuy').disabled = state.uranium < hqC || state.titan < hqC;
-    document.getElementById('mineBuy').disabled = state.titan < mineC;
-    document.getElementById('titanMineBuy').disabled = state.uranium < titanC;
-    document.getElementById('turretBuy').disabled = state.uranium < turretC || state.titan < Math.round(turretC*0.6);
+    document.getElementById('hqBuy').disabled = state.fuel<hqC || state.steel<hqC;
+    document.getElementById('fuelBuy').disabled = state.steel<fuelC;
+    document.getElementById('steelBuy').disabled = state.fuel<steelC;
+    document.getElementById('turretBuy').disabled = state.fuel<turretC || state.steel<Math.round(turretC*0.6);
   }
-
-  // --- Actions ---
-  document.getElementById('collectBtn').addEventListener('click', function(){
-    state.uranium += 5;
-    state.titan += 5;
-    try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
-    render(); save();
-  });
 
   document.getElementById('hqBuy').addEventListener('click', function(){
-    const c = cost(150, state.hqLevel - 1);
-    if(state.uranium >= c && state.titan >= c){
-      state.uranium -= c; state.titan -= c; state.hqLevel++;
-      addLog('Командний центр покращено до рівня ' + state.hqLevel);
-      render(); save();
+    const c = cost(150, state.hqLevel-1);
+    if(state.fuel>=c && state.steel>=c){
+      state.fuel-=c; state.steel-=c; state.hqLevel++;
+      addLog('🏛️ Штаб покращено до рівня ' + state.hqLevel);
+      renderAll(); save();
     }
   });
-  document.getElementById('mineBuy').addEventListener('click', function(){
-    const c = cost(50, state.mineLevel);
-    if(state.titan >= c){
-      state.titan -= c; state.mineLevel++;
-      addLog('Шахту урану побудовано (рівень ' + state.mineLevel + ')');
-      render(); save();
-    }
+  document.getElementById('fuelBuy').addEventListener('click', function(){
+    const c = cost(50, state.fuelLevel);
+    if(state.steel>=c){ state.steel-=c; state.fuelLevel++; addLog('⛽ Паливну базу розширено (рівень '+state.fuelLevel+')'); renderAll(); save(); }
   });
-  document.getElementById('titanMineBuy').addEventListener('click', function(){
-    const c = cost(50, state.titanMineLevel);
-    if(state.uranium >= c){
-      state.uranium -= c; state.titanMineLevel++;
-      addLog('Завод титану побудовано (рівень ' + state.titanMineLevel + ')');
-      render(); save();
-    }
+  document.getElementById('steelBuy').addEventListener('click', function(){
+    const c = cost(50, state.steelLevel);
+    if(state.fuel>=c){ state.fuel-=c; state.steelLevel++; addLog('🏗️ Металургійний завод розширено (рівень '+state.steelLevel+')'); renderAll(); save(); }
   });
   document.getElementById('turretBuy').addEventListener('click', function(){
-    const c = cost(80, state.turretLevel);
-    const c2 = Math.round(c*0.6);
-    if(state.uranium >= c && state.titan >= c2){
-      state.uranium -= c; state.titan -= c2; state.turretLevel++;
-      addLog('Оборонну турель посилено (рівень ' + state.turretLevel + ')');
-      render(); save();
-    }
+    const c = cost(80, state.turretLevel); const c2 = Math.round(c*0.6);
+    if(state.fuel>=c && state.steel>=c2){ state.fuel-=c; state.steel-=c2; state.turretLevel++; addLog('🛡️ ППО посилено (рівень '+state.turretLevel+')'); renderAll(); save(); }
   });
-
-  // passive tick every second
-  setInterval(function(){
-    state.uranium += uraniumRate();
-    state.titan += titanRate();
-    state.lastTick = Date.now();
-    render();
-    save();
-  }, 1000);
-
-  if(elapsedSec > 5){
-    addLog('Поки вас не було (' + elapsedSec + ' сек), зібрано ' + fmt(elapsedSec*uraniumRate()) + ' урану та ' + fmt(elapsedSec*titanRate()) + ' титану.');
+  function renderAll(){
+    renderResourceBar();
+    renderSupplyWindows();
+    renderDeployZones();
+    renderPrizeZones();
+    renderBuildings();
   }
 
-  render();
+  // --- UI TICK every second: тільки оновлює таймери/лічильники на екрані. ---
+  // Жодних ресурсів чи військ тут не додається — все приходить лише через
+  // явні дії гравця (вікна постачання, відправка загонів, розвідка).
+  setInterval(function(){
+    renderAll();
+  }, 1000);
+
+  if(offlineCompletions.length){
+    addLog('📡 Поки штаб мовчав, прибули загони, відправлені раніше.', 'gold');
+  }
+  renderAll();
+  save();
 })();
 </script>
 </body>
