@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Дике Поле: Бункер</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg-0:#0b0d0a;
+    --bg-1:#12140f;
+    --bg-2:#1a1d15;
+    --line:#2c3122;
+    --rust:#c9622a;
+    --rust-dim:#7a3c1c;
+    --toxic:#9fd63a;
+    --uranium:#c8e84a;
+    --titan:#8fb8c9;
+    --text:#e7e6df;
+    --text-dim:#8b8f7f;
+    --danger:#d1453b;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{
+    margin:0; padding:0; height:100%;
+    background:
+      radial-gradient(ellipse at 50% -10%, #23281a 0%, var(--bg-0) 60%);
+    color:var(--text);
+    font-family:'Courier New', ui-monospace, monospace;
+    overflow-x:hidden;
+  }
+  body{
+    display:flex; flex-direction:column;
+    min-height:100vh;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 2px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 2px);
+  }
+
+  /* HEADER */
+  header{
+    padding:14px 16px 10px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg-1), transparent);
+  }
+  .eyebrow{
+    font-size:10px; letter-spacing:3px; color:var(--rust);
+    text-transform:uppercase; margin-bottom:4px;
+  }
+  .title{
+    font-size:20px; font-weight:700; letter-spacing:1px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .title .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--toxic); box-shadow:0 0 8px var(--toxic);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .sector{font-size:11px; color:var(--text-dim); margin-top:2px;}
+
+  /* RESOURCE BAR */
+  .resources{
+    display:flex; gap:8px; padding:10px 16px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-1);
+  }
+  .res-card{
+    flex:1; background:var(--bg-2); border:1px solid var(--line);
+    border-radius:6px; padding:8px 10px; position:relative; overflow:hidden;
+  }
+  .res-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  }
+  .res-card.uranium::before{background:var(--uranium); box-shadow:0 0 6px var(--uranium);}
+  .res-card.titan::before{background:var(--titan); box-shadow:0 0 6px var(--titan);}
+  .res-label{font-size:9px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase;}
+  .res-val{font-size:18px; font-weight:700; margin-top:2px; font-variant-numeric:tabular-nums;}
+  .res-rate{font-size:10px; color:var(--toxic); margin-top:2px;}
+
+  /* MAIN GRID */
+  main{flex:1; padding:14px 16px 100px; max-width:520px; width:100%; margin:0 auto;}
+
+  .collect-btn{
+    width:100%; padding:16px; margin-bottom:16px;
+    background:linear-gradient(180deg, var(--rust), var(--rust-dim));
+    border:1px solid #e07a3f; border-radius:8px;
+    color:#fff; font-family:inherit; font-size:14px; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase;
+    cursor:pointer; position:relative;
+    box-shadow:0 4px 0 var(--rust-dim), 0 6px 14px rgba(0,0,0,.5);
+    transition:transform .06s;
+  }
+  .collect-btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--rust-dim);}
+  .collect-btn .sub{display:block; font-size:10px; font-weight:400; letter-spacing:1px; color:#ffe0cc; margin-top:3px; text-transform:none;}
+
+  .section-label{
+    font-size:10px; letter-spacing:3px; color:var(--text-dim);
+    text-transform:uppercase; margin:18px 0 8px; display:flex; align-items:center; gap:8px;
+  }
+  .section-label::after{content:''; flex:1; height:1px; background:var(--line);}
+
+  .building{
+    background:var(--bg-2); border:1px solid var(--line); border-radius:8px;
+    padding:12px; margin-bottom:10px; display:flex; align-items:center; gap:12px;
+  }
+  .b-icon{
+    width:42px; height:42px; border-radius:6px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; flex-shrink:0; border:1px solid var(--line);
+    background:var(--bg-1);
+  }
+  .b-info{flex:1; min-width:0;}
+  .b-name{font-size:13px; font-weight:700;}
+  .b-desc{font-size:10px; color:var(--text-dim); margin-top:2px;}
+  .b-level{font-size:10px; color:var(--toxic); margin-top:3px;}
+  .b-buy{
+    flex-shrink:0; text-align:right; background:none; border:1px solid var(--rust);
+    color:var(--rust); border-radius:6px; padding:8px 10px; font-family:inherit;
+    font-size:11px; cursor:pointer; min-width:78px;
+  }
+  .b-buy:disabled{border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
+  .b-buy .cost-line{display:block; font-size:10px; margin-top:2px;}
+
+  .log{
+    background:var(--bg-1); border:1px solid var(--line); border-radius:6px;
+    padding:8px 10px; font-size:10px; color:var(--text-dim);
+    max-height:70px; overflow-y:auto; margin-top:16px;
+  }
+  .log div{margin-bottom:2px;}
+  .log .new{color:var(--toxic);}
+
+  footer{
+    position:fixed; bottom:0; left:0; right:0;
+    background:var(--bg-1); border-top:1px solid var(--line);
+    padding:10px 16px; display:flex; justify-content:space-around;
+    max-width:520px; margin:0 auto; width:100%;
+  }
+  .nav-item{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    font-size:9px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;
+  }
+  .nav-item.active{color:var(--rust);}
+  .nav-icon{font-size:16px;}
+
+  ::-webkit-scrollbar{width:4px;}
+  ::-webkit-scrollbar-thumb{background:var(--line);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Дике Поле // Ядерний сектор</div>
+  <div class="title"><span class="dot"></span>Бункер-17 «Стрілець»</div>
+  <div class="sector">Координати: X-42 / Y-19 &nbsp;·&nbsp; Гравець: <span id="playerName">Отаман</span></div>
+</header>
+
+<div class="resources">
+  <div class="res-card uranium">
+    <div class="res-label">Уран</div>
+    <div class="res-val" id="uraniumVal">0</div>
+    <div class="res-rate" id="uraniumRate">+0/сек</div>
+  </div>
+  <div class="res-card titan">
+    <div class="res-label">Титан</div>
+    <div class="res-val" id="titanVal">0</div>
+    <div class="res-rate" id="titanRate">+0/сек</div>
+  </div>
+</div>
+
+<main>
+  <button class="collect-btn" id="collectBtn">
+    Зібрати ресурси
+    <span class="sub">+5 Уран · +5 Титан за клік</span>
+  </button>
+
+  <div class="section-label">Споруди</div>
+
+  <div class="building">
+    <div class="b-icon">🏭</div>
+    <div class="b-info">
+      <div class="b-name">Командний центр</div>
+      <div class="b-desc">Розблоковує нові будівлі, підвищує ліміт складу</div>
+      <div class="b-level">Рівень <span id="hqLevel">1</span></div>
+    </div>
+    <button class="b-buy" id="hqBuy">Покращити<span class="cost-line" id="hqCost"></span></button>
+  </div>
+
+  <div class="building">
+    <div class="b-icon">☢️</div>
+    <div class="b-info">
+      <div class="b-name">Шахта урану</div>
+      <div class="b-desc">Пасивний видобуток урану щосекунди</div>
+      <div class="b-level">Рівень <span id="mineLevel">0</span></div>
+    </div>
+    <button class="b-buy" id="mineBuy">Побудувати<span class="cost-line" id="mineCost"></span></button>
+  </div>
+
+  <div class="building">
+    <div class="b-icon">⚙️</div>
+    <div class="b-info">
+      <div class="b-name">Завод титану</div>
+      <div class="b-desc">Пасивний видобуток титану щосекунди</div>
+      <div class="b-level">Рівень <span id="titanMineLevel">0</span></div>
+    </div>
+    <button class="b-buy" id="titanMineBuy">Побудувати<span class="cost-line" id="titanMineCost"></span></button>
+  </div>
+
+  <div class="building">
+    <div class="b-icon">🛡️</div>
+    <div class="b-info">
+      <div class="b-name">Оборонна турель</div>
+      <div class="b-desc">Захищає бункер від рейдів інших гравців</div>
+      <div class="b-level">Рівень <span id="turretLevel">0</span></div>
+    </div>
+    <button class="b-buy" id="turretBuy">Побудувати<span class="cost-line" id="turretCost"></span></button>
+  </div>
+
+  <div class="section-label">Журнал бункера</div>
+  <div class="log" id="log">
+    <div>Система запущена. Ласкаво просимо, Отамане.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="nav-item active"><span class="nav-icon">🏠</span>База</div>
+  <div class="nav-item"><span class="nav-icon">🗺️</span>Карта</div>
+  <div class="nav-item"><span class="nav-icon">⚔️</span>Рейди</div>
+  <div class="nav-item"><span class="nav-icon">👥</span>Клан</div>
+</footer>
+
+<script>
+(function(){
+  // --- Telegram WebApp integration (safe fallback if opened outside Telegram) ---
+  let tg = null;
+  try{
+    if(window.Telegram && window.Telegram.WebApp){
+      tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
+      if(user && user.first_name){
+        document.getElementById('playerName').textContent = user.first_name;
+      }
+      if(tg.themeParams && tg.themeParams.bg_color){
+        // optional: could adapt to telegram theme, but we keep signature dark militaristic look
+      }
+    }
+  }catch(e){ console.warn('Telegram WebApp SDK not available:', e); }
+
+  // --- Game state ---
+  const STORAGE_KEY = 'loca_deserta_bunker_save_v1';
+  let state = {
+    uranium: 0,
+    titan: 0,
+    hqLevel: 1,
+    mineLevel: 0,
+    titanMineLevel: 0,
+    turretLevel: 0,
+    lastTick: Date.now()
+  };
+
+  const saved = localStororage_safe_load();
+  if(saved) state = Object.assign(state, saved);
+
+  function localStororage_safe_load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  // offline progress
+  const now = Date.now();
+  const elapsedSec = Math.min(3600, Math.floor((now - (state.lastTick||now))/1000));
+  if(elapsedSec > 0){
+    state.uranium += elapsedSec * uraniumRate();
+    state.titan += elapsedSec * titanRate();
+  }
+  state.lastTick = now;
+
+  function uraniumRate(){ return state.mineLevel * 2; }
+  function titanRate(){ return state.titanMineLevel * 2; }
+
+  function cost(base, level){ return Math.round(base * Math.pow(1.55, level)); }
+
+  const els = {
+    uraniumVal: document.getElementById('uraniumVal'),
+    titanVal: document.getElementById('titanVal'),
+    uraniumRate: document.getElementById('uraniumRate'),
+    titanRate: document.getElementById('titanRate'),
+    hqLevel: document.getElementById('hqLevel'),
+    mineLevel: document.getElementById('mineLevel'),
+    titanMineLevel: document.getElementById('titanMineLevel'),
+    turretLevel: document.getElementById('turretLevel'),
+    hqCost: document.getElementById('hqCost'),
+    mineCost: document.getElementById('mineCost'),
+    titanMineCost: document.getElementById('titanMineCost'),
+    turretCost: document.getElementById('turretCost'),
+    log: document.getElementById('log')
+  };
+
+  function fmt(n){
+    n = Math.floor(n);
+    return n.toLocaleString('uk-UA');
+  }
+
+  function addLog(text){
+    const div = document.createElement('div');
+    div.className = 'new';
+    div.textContent = '› ' + text;
+    els.log.prepend(div);
+    while(els.log.children.length > 20) els.log.removeChild(els.log.lastChild);
+  }
+
+  function render(){
+    els.uraniumVal.textContent = fmt(state.uranium);
+    els.titanVal.textContent = fmt(state.titan);
+    els.uraniumRate.textContent = '+' + uraniumRate() + '/сек';
+    els.titanRate.textContent = '+' + titanRate() + '/сек';
+    els.hqLevel.textContent = state.hqLevel;
+    els.mineLevel.textContent = state.mineLevel;
+    els.titanMineLevel.textContent = state.titanMineLevel;
+    els.turretLevel.textContent = state.turretLevel;
+
+    const hqC = cost(150, state.hqLevel - 1);
+    const mineC = cost(50, state.mineLevel);
+    const titanC = cost(50, state.titanMineLevel);
+    const turretC = cost(80, state.turretLevel);
+
+    els.hqCost.textContent = hqC + ' ур. / ' + hqC + ' тит.';
+    els.mineCost.textContent = mineC + ' тит.';
+    els.titanMineCost.textContent = titanC + ' ур.';
+    els.turretCost.textContent = turretC + ' ур. / ' + Math.round(turretC*0.6) + ' тит.';
+
+    document.getElementById('hqBuy').disabled = state.uranium < hqC || state.titan < hqC;
+    document.getElementById('mineBuy').disabled = state.titan < mineC;
+    document.getElementById('titanMineBuy').disabled = state.uranium < titanC;
+    document.getElementById('turretBuy').disabled = state.uranium < turretC || state.titan < Math.round(turretC*0.6);
+  }
+
+  // --- Actions ---
+  document.getElementById('collectBtn').addEventListener('click', function(){
+    state.uranium += 5;
+    state.titan += 5;
+    try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
+    render(); save();
+  });
+
+  document.getElementById('hqBuy').addEventListener('click', function(){
+    const c = cost(150, state.hqLevel - 1);
+    if(state.uranium >= c && state.titan >= c){
+      state.uranium -= c; state.titan -= c; state.hqLevel++;
+      addLog('Командний центр покращено до рівня ' + state.hqLevel);
+      render(); save();
+    }
+  });
+  document.getElementById('mineBuy').addEventListener('click', function(){
+    const c = cost(50, state.mineLevel);
+    if(state.titan >= c){
+      state.titan -= c; state.mineLevel++;
+      addLog('Шахту урану побудовано (рівень ' + state.mineLevel + ')');
+      render(); save();
+    }
+  });
+  document.getElementById('titanMineBuy').addEventListener('click', function(){
+    const c = cost(50, state.titanMineLevel);
+    if(state.uranium >= c){
+      state.uranium -= c; state.titanMineLevel++;
+      addLog('Завод титану побудовано (рівень ' + state.titanMineLevel + ')');
+      render(); save();
+    }
+  });
+  document.getElementById('turretBuy').addEventListener('click', function(){
+    const c = cost(80, state.turretLevel);
+    const c2 = Math.round(c*0.6);
+    if(state.uranium >= c && state.titan >= c2){
+      state.uranium -= c; state.titan -= c2; state.turretLevel++;
+      addLog('Оборонну турель посилено (рівень ' + state.turretLevel + ')');
+      render(); save();
+    }
+  });
+
+  // passive tick every second
+  setInterval(function(){
+    state.uranium += uraniumRate();
+    state.titan += titanRate();
+    state.lastTick = Date.now();
+    render();
+    save();
+  }, 1000);
+
+  if(elapsedSec > 5){
+    addLog('Поки вас не було (' + elapsedSec + ' сек), зібрано ' + fmt(elapsedSec*uraniumRate()) + ' урану та ' + fmt(elapsedSec*titanRate()) + ' титану.');
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
