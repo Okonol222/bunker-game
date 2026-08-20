@@ -42,11 +42,11 @@
     padding:14px 16px 10px; border-bottom:1px solid var(--line);
     background:linear-gradient(180deg, var(--bg-1), transparent);
   }
-  .eyebrow{font-size:10px; letter-spacing:3px; color:var(--steel); text-transform:uppercase; margin-bottom:4px;}
-  .title{font-size:19px; font-weight:700; letter-spacing:1px; display:flex; align-items:center; gap:8px;}
+  .eyebrow{font-size:13px; letter-spacing:3px; color:var(--steel); text-transform:uppercase; margin-bottom:4px;}
+  .title{font-size:24px; font-weight:700; letter-spacing:1px; display:flex; align-items:center; gap:8px;}
   .title .dot{width:7px; height:7px; border-radius:50%; background:var(--olive); box-shadow:0 0 8px var(--olive); animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  .sector{font-size:11px; color:var(--text-dim); margin-top:2px;}
+  .sector{font-size:14px; color:var(--text-dim); margin-top:2px;}
 
   .resources{
     display:flex; gap:6px; padding:8px 12px; border-bottom:1px solid var(--line);
@@ -60,77 +60,142 @@
   .res-card.armor::before{background:var(--armor);}
   .res-card.arty::before{background:var(--arty);}
   .res-card.air::before{background:var(--air);}
-  .res-label{font-size:8px; letter-spacing:1px; color:var(--text-dim); text-transform:uppercase;}
-  .res-val{font-size:14px; font-weight:700; margin-top:1px; font-variant-numeric:tabular-nums;}
-  .res-rate{font-size:8px; color:var(--olive); margin-top:1px;}
+  .res-label{font-size:11px; letter-spacing:1px; color:var(--text-dim); text-transform:uppercase;}
+  .res-val{font-size:19px; font-weight:700; margin-top:1px; font-variant-numeric:tabular-nums;}
+  .res-rate{font-size:11px; color:var(--olive); margin-top:1px;}
 
   main{flex:1; padding:12px 14px 100px; max-width:520px; width:100%; margin:0 auto;}
 
   .collect-btn{
-    width:100%; padding:12px; margin-bottom:10px;
+    width:100%; padding:16px; margin-bottom:10px;
     background:linear-gradient(180deg, var(--steel), var(--steel-dim));
     border:1px solid #6f9bc2; border-radius:8px; color:#fff; font-family:inherit;
-    font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    font-size:17px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
     cursor:pointer; box-shadow:0 4px 0 var(--steel-dim), 0 6px 14px rgba(0,0,0,.5); transition:transform .06s;
   }
   .collect-btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--steel-dim);}
-  .collect-btn .sub{display:block; font-size:9px; font-weight:400; letter-spacing:1px; color:#dceaf5; margin-top:2px; text-transform:none;}
+  .collect-btn .sub{display:block; font-size:12px; font-weight:400; letter-spacing:1px; color:#dceaf5; margin-top:2px; text-transform:none;}
 
-  .section-label{font-size:9px; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px; display:flex; align-items:center; gap:8px;}
+  .section-label{font-size:12px; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; margin:14px 0 6px; display:flex; align-items:center; gap:8px;}
   .section-label::after{content:''; flex:1; height:1px; background:var(--line);}
 
-  .card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
-  .card-icon{width:38px; height:38px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
+  .card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
+  .card-icon{width:48px; height:48px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
   .card-info{flex:1; min-width:0;}
-  .card-name{font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
-  .card-desc{font-size:9px; color:var(--text-dim); margin-top:1px;}
-  .card-level{font-size:9px; color:var(--olive); margin-top:2px;}
-  .card-btn{flex-shrink:0; text-align:center; background:none; border:1px solid var(--steel); color:var(--steel); border-radius:6px; padding:6px 8px; font-family:inherit; font-size:10px; cursor:pointer; min-width:64px;}
+  .card-name{font-size:16px; font-weight:700; display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
+  .card-desc{font-size:12px; color:var(--text-dim); margin-top:1px;}
+  .card-level{font-size:12px; color:var(--olive); margin-top:2px;}
+  .card-btn{flex-shrink:0; text-align:center; background:none; border:1px solid var(--steel); color:var(--steel); border-radius:6px; padding:10px 12px; font-family:inherit; font-size:13px; cursor:pointer; min-width:78px;}
   .card-btn:disabled{border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
-  .card-btn .cost-line{display:block; font-size:8px; margin-top:1px;}
+  .card-btn .cost-line{display:block; font-size:11px; margin-top:1px;}
 
   .card-btn.deploy{background:linear-gradient(180deg, #3a5240, #1f2f26); border-color:var(--olive); color:var(--olive);}
   .card-btn.deploy:disabled{background:var(--bg-1); border-color:#3a3d33; color:#565a4b;}
 
-  .progress-wrap{width:100%; height:5px; background:var(--bg-1); border-radius:3px; overflow:hidden; margin-top:5px;}
+  .progress-wrap{width:100%; height:7px; background:var(--bg-1); border-radius:3px; overflow:hidden; margin-top:5px;}
   .progress-bar{height:100%; background:linear-gradient(90deg, var(--steel), var(--olive)); transition:width .3s linear;}
-  .timer-text{font-size:9px; color:var(--amber); margin-top:3px; font-variant-numeric:tabular-nums;}
+  .timer-text{font-size:12px; color:var(--amber); margin-top:3px; font-variant-numeric:tabular-nums;}
 
-  .supply-card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
+  .supply-card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:8px; display:flex; align-items:center; gap:10px;}
   .supply-card.available{border-color:var(--gold); box-shadow:0 0 0 1px rgba(245,200,66,0.2);}
   .supply-card.missed{opacity:.55;}
-  .supply-icon{width:38px; height:38px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
+  .supply-icon{width:48px; height:48px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
   .supply-info{flex:1; min-width:0;}
-  .supply-time{font-size:12px; font-weight:700;}
-  .supply-desc{font-size:9px; color:var(--text-dim); margin-top:1px;}
-  .supply-status{font-size:9px; margin-top:3px; font-variant-numeric:tabular-nums;}
+  .supply-time{font-size:16px; font-weight:700;}
+  .supply-desc{font-size:12px; color:var(--text-dim); margin-top:1px;}
+  .supply-status{font-size:12px; margin-top:3px; font-variant-numeric:tabular-nums;}
   .supply-status.wait{color:var(--text-dim);}
   .supply-status.open{color:var(--gold);}
   .supply-status.missed{color:var(--danger);}
-  .supply-btn{flex-shrink:0; text-align:center; background:linear-gradient(180deg, #6b5a1f, #423412); border:1px solid var(--gold); color:var(--gold); border-radius:6px; padding:8px 10px; font-family:inherit; font-size:10px; font-weight:700; cursor:pointer; min-width:70px;}
+  .supply-btn{flex-shrink:0; text-align:center; background:linear-gradient(180deg, #6b5a1f, #423412); border:1px solid var(--gold); color:var(--gold); border-radius:6px; padding:12px 14px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; min-width:70px;}
   .supply-btn:disabled{background:var(--bg-1); border-color:#3a3d33; color:#565a4b; cursor:not-allowed; font-weight:400;}
 
-  .log{background:var(--bg-1); border:1px solid var(--line); border-radius:6px; padding:6px 8px; font-size:9px; color:var(--text-dim); max-height:64px; overflow-y:auto; margin-top:12px;}
+  .log{background:var(--bg-1); border:1px solid var(--line); border-radius:6px; padding:10px 12px; font-size:12px; color:var(--text-dim); max-height:64px; overflow-y:auto; margin-top:12px;}
   .log div{margin-bottom:2px;}
   .log .new{color:var(--olive);}
   .log .gold{color:var(--gold);}
   .log .danger{color:var(--danger);}
 
   footer{position:fixed; bottom:0; left:0; right:0; background:var(--bg-1); border-top:1px solid var(--line); padding:8px 12px; display:flex; justify-content:space-around; max-width:520px; margin:0 auto; width:100%;}
-  .nav-item{display:flex; flex-direction:column; align-items:center; gap:1px; font-size:8px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;}
+  .nav-item{display:flex; flex-direction:column; align-items:center; gap:3px; font-size:11px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;}
   .nav-item.active{color:var(--steel);}
-  .nav-icon{font-size:14px;}
+  .nav-icon{font-size:20px;}
 
   ::-webkit-scrollbar{width:3px;}
   ::-webkit-scrollbar-thumb{background:var(--line);}
 
   .reward-popup{position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-1); border:2px solid var(--gold); border-radius:12px; padding:20px 24px; text-align:center; z-index:999; box-shadow:0 0 60px rgba(245,200,66,0.2); animation:pop .3s ease-out; max-width:280px; width:90%;}
   @keyframes pop{0%{transform:translate(-50%,-50%) scale(0.8); opacity:0;}100%{transform:translate(-50%,-50%) scale(1); opacity:1;}}
-  .reward-popup .big{font-size:32px; margin:4px 0;}
-  .reward-popup .desc{font-size:13px; color:var(--text);}
-  .reward-popup .sub{font-size:11px; color:var(--text-dim); margin-top:4px;}
-  .reward-popup .close-btn{margin-top:12px; padding:6px 20px; background:var(--steel); border:none; border-radius:6px; color:#fff; font-family:inherit; font-size:12px; cursor:pointer;}
+  .reward-popup .big{font-size:42px; margin:4px 0;}
+  .reward-popup .desc{font-size:17px; color:var(--text);}
+  .reward-popup .sub{font-size:14px; color:var(--text-dim); margin-top:4px;}
+  .reward-popup .close-btn{margin-top:12px; padding:10px 24px; background:var(--steel); border:none; border-radius:6px; color:#fff; font-family:inherit; font-size:15px; cursor:pointer;}
   .overlay{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:998;}
+
+  /* --- Battle locations --- */
+  .loc-card{background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:8px;}
+  .loc-card.locked{opacity:.5;}
+  .loc-card.won{border-color:var(--olive);}
+  .loc-top{display:flex; align-items:center; gap:10px;}
+  .loc-icon{width:48px; height:48px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; border:1px solid var(--line); background:var(--bg-1);}
+  .loc-info{flex:1; min-width:0;}
+  .loc-name{font-size:16px; font-weight:700; display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .loc-badge{font-size:11px; padding:1px 6px; border-radius:4px; background:var(--steel-dim); color:#dceaf5; letter-spacing:1px;}
+  .loc-badge.won{background:var(--olive); color:#12190f;}
+  .loc-desc{font-size:12px; color:var(--text-dim); margin-top:1px;}
+  .loc-power{font-size:12px; margin-top:3px;}
+  .loc-power .lbl{color:var(--text-dim);}
+  .loc-btn{flex-shrink:0; text-align:center; background:linear-gradient(180deg, #6b3a1f, #421f12); border:1px solid var(--danger); color:#ffb3a8; border-radius:6px; padding:10px 12px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; min-width:82px;}
+  .loc-btn:disabled{background:var(--bg-1); border-color:#3a3d33; color:#565a4b; cursor:not-allowed; font-weight:400;}
+
+  .modal{position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--bg-1); border:2px solid var(--steel); border-radius:12px; padding:18px 18px 14px; z-index:999; max-width:340px; width:92%; max-height:82vh; overflow-y:auto;}
+  .modal h3{margin:0 0 2px; font-size:17px;}
+  .modal .modal-sub{font-size:12px; color:var(--text-dim); margin-bottom:10px;}
+  .stepper-row{display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--line);}
+  .stepper-row .u-icon{font-size:20px; width:26px; text-align:center;}
+  .stepper-row .u-label{flex:1; font-size:13px;}
+  .stepper-row .u-owned{font-size:11px; color:var(--text-dim);}
+  .stepper-btn{width:30px; height:30px; border-radius:6px; border:1px solid var(--steel); background:var(--bg-2); color:var(--text); font-size:16px; cursor:pointer; line-height:1;}
+  .stepper-btn:disabled{opacity:.35; cursor:not-allowed;}
+  .stepper-val{width:42px; text-align:center; font-variant-numeric:tabular-nums; font-weight:700;}
+  .power-compare{margin-top:12px; padding:10px; border-radius:8px; background:var(--bg-2); border:1px solid var(--line); text-align:center; font-size:13px;}
+  .power-compare .ratio-bar{height:8px; border-radius:4px; background:var(--bg-1); overflow:hidden; margin-top:6px;}
+  .power-compare .ratio-fill{height:100%; transition:width .2s;}
+  .modal-actions{display:flex; gap:8px; margin-top:14px;}
+  .modal-actions button{flex:1; padding:12px; border-radius:6px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer;}
+  .modal-cancel{background:none; border:1px solid var(--line); color:var(--text-dim);}
+  .modal-attack{background:linear-gradient(180deg, #6b3a1f, #421f12); border:1px solid var(--danger); color:#ffb3a8;}
+  .modal-attack:disabled{background:var(--bg-2); border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
+
+  /* --- Pages / tabs --- */
+  .page{display:none;}
+  .page.active{display:block;}
+  .nav-item{cursor:pointer;}
+
+  .rush-btn{margin-top:8px; width:100%; padding:8px; background:none; border:1px dashed var(--amber); color:var(--amber); border-radius:6px; font-family:inherit; font-size:12px; cursor:pointer;}
+  .rush-btn:disabled{border-color:#3a3d33; color:#565a4b; cursor:not-allowed;}
+
+  .stub-card{background:var(--bg-2); border:1px solid var(--line); border-radius:10px; padding:26px 20px; text-align:center; margin-top:8px;}
+  .stub-card .stub-icon{font-size:40px; margin-bottom:8px;}
+  .stub-card .stub-title{font-size:17px; font-weight:700; letter-spacing:1px;}
+  .stub-card .stub-desc{font-size:13px; color:var(--text-dim); margin-top:8px; line-height:1.5;}
+  .stub-card .stub-tag{display:inline-block; margin-top:12px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); border:1px solid var(--amber); border-radius:4px; padding:3px 8px;}
+
+  /* --- Leaderboard --- */
+  .lb-refresh{width:100%; padding:10px; margin-bottom:8px; background:none; border:1px solid var(--line); color:var(--text-dim); border-radius:6px; font-family:inherit; font-size:12px; letter-spacing:1px; cursor:pointer;}
+  .lb-refresh:disabled{opacity:.5; cursor:not-allowed;}
+  .lb-row{display:flex; align-items:center; gap:10px; background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:6px;}
+  .lb-row.me{border-color:var(--steel); box-shadow:0 0 0 1px rgba(74,109,140,0.3);}
+  .lb-rank{width:26px; text-align:center; font-weight:700; font-size:14px; color:var(--text-dim); flex-shrink:0;}
+  .lb-row:nth-child(1) .lb-rank{color:var(--gold);}
+  .lb-row:nth-child(2) .lb-rank{color:#cfd6da;}
+  .lb-row:nth-child(3) .lb-rank{color:#c9824a;}
+  .lb-info{flex:1; min-width:0;}
+  .lb-name{font-size:14px; font-weight:700; display:flex; align-items:center; gap:6px;}
+  .lb-name .you-tag{font-size:10px; letter-spacing:1px; color:var(--steel); border:1px solid var(--steel); border-radius:4px; padding:1px 5px;}
+  .lb-sub{font-size:11px; color:var(--text-dim); margin-top:2px;}
+  .lb-score{font-size:15px; font-weight:700; color:var(--amber); font-variant-numeric:tabular-nums; flex-shrink:0;}
+  .lb-empty{text-align:center; color:var(--text-dim); font-size:13px; padding:20px;}
 </style>
 </head>
 <body>
@@ -144,66 +209,102 @@
 <div class="resources" id="resourceBar"></div>
 
 <main>
-  <div class="section-label">📦 Постачання за розкладом</div>
-  <div id="supplyContainer"></div>
 
-  <div class="section-label">🎯 Райони бойових дій</div>
-  <div id="deployContainer"></div>
+  <!-- ===== PAGE: БАЗА ===== -->
+  <div class="page active" id="page-base">
+    <div class="section-label">📦 Постачання за розкладом</div>
+    <div id="supplyContainer"></div>
 
-  <div class="section-label">☢️ Стратегічні об'єкти</div>
-  <div id="prizeContainer"></div>
+    <div class="section-label">🏗️ Інфраструктура</div>
 
-  <div class="section-label">🏗️ Інфраструктура</div>
-
-  <div class="card">
-    <div class="card-icon">🏛️</div>
-    <div class="card-info">
-      <div class="card-name">Штаб командування</div>
-      <div class="card-desc">Відкриває нові роди військ</div>
-      <div class="card-level">Рівень <span id="hqLevel">1</span></div>
+    <div class="card">
+      <div class="card-icon">🏛️</div>
+      <div class="card-info">
+        <div class="card-name">Штаб командування</div>
+        <div class="card-desc">Відкриває нові роди військ</div>
+        <div class="card-level">Рівень <span id="hqLevel">1</span></div>
+      </div>
+      <button class="card-btn" id="hqBuy">Покращити<span class="cost-line" id="hqCost"></span></button>
     </div>
-    <button class="card-btn" id="hqBuy">Покращити<span class="cost-line" id="hqCost"></span></button>
+
+    <div class="card">
+      <div class="card-icon">⛽</div>
+      <div class="card-info">
+        <div class="card-name">Паливна база</div>
+        <div class="card-desc">Пасивне постачання пального</div>
+        <div class="card-level">Рівень <span id="fuelLevel">0</span></div>
+      </div>
+      <button class="card-btn" id="fuelBuy">Побудувати<span class="cost-line" id="fuelCost"></span></button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <div class="card-info">
+        <div class="card-name">Металургійний завод</div>
+        <div class="card-desc">Пасивне постачання сталі</div>
+        <div class="card-level">Рівень <span id="steelLevel">0</span></div>
+      </div>
+      <button class="card-btn" id="steelBuy">Побудувати<span class="cost-line" id="steelCost"></span></button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <div class="card-info">
+        <div class="card-name">ППО периметру</div>
+        <div class="card-desc">Захист бази від контратак</div>
+        <div class="card-level">Рівень <span id="turretLevel">0</span></div>
+      </div>
+      <button class="card-btn" id="turretBuy">Побудувати<span class="cost-line" id="turretCost"></span></button>
+    </div>
+
+    <div class="section-label">📜 Журнал операцій</div>
+    <div class="log" id="log"><div>Зв'язок встановлено. Штаб на зв'язку, командире.</div></div>
   </div>
 
-  <div class="card">
-    <div class="card-icon">⛽</div>
-    <div class="card-info">
-      <div class="card-name">Паливна база</div>
-      <div class="card-desc">Пасивне постачання пального</div>
-      <div class="card-level">Рівень <span id="fuelLevel">0</span></div>
+  <!-- ===== PAGE: РЕЙДИ ===== -->
+  <div class="page" id="page-raids">
+    <div class="section-label">🎯 Райони бойових дій</div>
+    <div id="deployContainer"></div>
+    <div id="attackModalWrap" style="display:none;">
+      <div class="overlay" id="attackModalOverlay"></div>
+      <div class="modal" id="attackModal"></div>
     </div>
-    <button class="card-btn" id="fuelBuy">Побудувати<span class="cost-line" id="fuelCost"></span></button>
+
+    <div class="section-label">☢️ Стратегічні об'єкти</div>
+    <div id="prizeContainer"></div>
   </div>
 
-  <div class="card">
-    <div class="card-icon">🏗️</div>
-    <div class="card-info">
-      <div class="card-name">Металургійний завод</div>
-      <div class="card-desc">Пасивне постачання сталі</div>
-      <div class="card-level">Рівень <span id="steelLevel">0</span></div>
+  <!-- ===== PAGE: КАРТА (Рейтинг командирів) ===== -->
+  <div class="page" id="page-map">
+    <div class="section-label">🏆 Рейтинг командирів</div>
+    <button class="lb-refresh" id="lbRefresh">Оновити рейтинг</button>
+    <div id="lbContainer"><div class="lb-empty">Завантаження...</div></div>
+    <div class="stub-card">
+      <div class="stub-icon">🗺️</div>
+      <div class="stub-title">Повноцінна PvP-карта в розробці</div>
+      <div class="stub-desc">Далі тут з'являться координати командирів на карті, розвідка чужих бункерів і рейди на реальних гравців.</div>
+      <div class="stub-tag">Наступна ітерація</div>
     </div>
-    <button class="card-btn" id="steelBuy">Побудувати<span class="cost-line" id="steelCost"></span></button>
   </div>
 
-  <div class="card">
-    <div class="card-icon">🛡️</div>
-    <div class="card-info">
-      <div class="card-name">ППО периметру</div>
-      <div class="card-desc">Захист бази від контратак</div>
-      <div class="card-level">Рівень <span id="turretLevel">0</span></div>
+  <!-- ===== PAGE: АЛЬЯНС ===== -->
+  <div class="page" id="page-alliance">
+    <div class="section-label">👥 Альянс</div>
+    <div class="stub-card">
+      <div class="stub-icon">👥</div>
+      <div class="stub-title">Альянси в розробці</div>
+      <div class="stub-desc">Тут можна буде об'єднуватись у групи, мати спільний чат, бонуси до видобутку та спільні рейди на боса.</div>
+      <div class="stub-tag">Наступна ітерація</div>
     </div>
-    <button class="card-btn" id="turretBuy">Побудувати<span class="cost-line" id="turretCost"></span></button>
   </div>
 
-  <div class="section-label">📜 Журнал операцій</div>
-  <div class="log" id="log"><div>Зв'язок встановлено. Штаб на зв'язку, командире.</div></div>
 </main>
 
 <footer>
-  <div class="nav-item active"><span class="nav-icon">🏠</span>База</div>
-  <div class="nav-item"><span class="nav-icon">🗺️</span>Карта</div>
-  <div class="nav-item"><span class="nav-icon">⚔️</span>Рейди</div>
-  <div class="nav-item"><span class="nav-icon">👥</span>Альянс</div>
+  <div class="nav-item active" data-page="base"><span class="nav-icon">🏠</span>База</div>
+  <div class="nav-item" data-page="map"><span class="nav-icon">🗺️</span>Карта</div>
+  <div class="nav-item" data-page="raids"><span class="nav-icon">⚔️</span>Рейди</div>
+  <div class="nav-item" data-page="alliance"><span class="nav-icon">👥</span>Альянс</div>
 </footer>
 
 <div id="rewardPopup" style="display:none;">
@@ -217,17 +318,66 @@
 </div>
 
 <script>
-(function(){
+(async function(){
+  // --- Supabase (хмарне збереження профілю гравця) ---
+  const SUPABASE_URL = 'https://afzhcwbmiyxtanpzesoq.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_DM4mRc40g1gzNDwK_dEUCQ_yCIFwOha';
+
   // --- Telegram WebApp ---
   let tg = null;
+  let playerId = null;
   try{
     if(window.Telegram && window.Telegram.WebApp){
       tg = window.Telegram.WebApp;
       tg.ready(); tg.expand();
       const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
       if(user && user.first_name) document.getElementById('playerName').textContent = user.first_name;
+      if(user && user.id) playerId = 'tg_' + user.id;
+      if(user && user.first_name) window.__tgFirstName = user.first_name;
     }
   }catch(e){}
+
+  // Якщо гра відкрита поза Telegram (тест у звичайному браузері) — робимо гостьовий ID,
+  // що зберігається локально, аби хоч тестовий прогрес не губився між перезавантаженнями.
+  if(!playerId){
+    try{
+      playerId = localStorage.getItem('front_command_guest_id');
+      if(!playerId){
+        playerId = 'guest_' + Math.random().toString(36).slice(2) + Date.now();
+        localStorage.setItem('front_command_guest_id', playerId);
+      }
+    }catch(e){ playerId = 'guest_' + Date.now(); }
+  }
+
+  // --- REST-виклики до Supabase (таблиця players: id text PRIMARY KEY, state_json jsonb) ---
+  async function cloudLoad(){
+    try{
+      const res = await fetch(SUPABASE_URL + '/rest/v1/players?id=eq.' + encodeURIComponent(playerId) + '&select=state_json', {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      if(!res.ok) return null;
+      const rows = await res.json();
+      if(rows && rows.length && rows[0].state_json) return rows[0].state_json;
+      return null;
+    }catch(e){ return null; }
+  }
+  let cloudSaveTimer = null;
+  function cloudSave(stateToSave){
+    // невелика затримка, щоб не спамити сервер при швидких послідовних діях
+    clearTimeout(cloudSaveTimer);
+    cloudSaveTimer = setTimeout(()=>{
+      fetch(SUPABASE_URL + '/rest/v1/players', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates'
+        },
+        body: JSON.stringify({ id: playerId, state_json: stateToSave })
+      }).catch(()=>{});
+    }, 400);
+  }
 
   // --- UNIT TYPES (4 roди військ) ---
   const UNITS = [
@@ -236,6 +386,12 @@
     { id:'arty', label:'Артилерія', icon:'💥', hqReq:3, color:'#e8654a' },
     { id:'air', label:'Авіація', icon:'✈️', hqReq:4, color:'#5aa8e8' }
   ];
+
+  // Бойова сила одиниці кожного роду військ — використовується калькулятором боїв.
+  const UNIT_POWER = { infantry:1, armor:6, arty:14, air:30 };
+  function armyPower(unitsObj){
+    return UNITS.reduce((sum,u)=> sum + (unitsObj[u.id]||0) * UNIT_POWER[u.id], 0);
+  }
 
   // --- SUPPLY WINDOWS: фіксовані вікна доби, "зайшов вчасно — забрав, інакше пропустив" ---
   // hour = година початку вікна (0-23, локальний час пристрою), windowMin = скільки хвилин вікно відкрите
@@ -246,13 +402,20 @@
     { id:'sw4', hour:22, windowMin:60, icon:'🌙', label:'Нічний конвой',    fuel:60, steel:60, unit:'air',      amount:2  }
   ];
 
-  // --- DEPLOYMENT ZONES: відправляєш загін, чекаєш, отримуєш військо ---
-  const DEPLOY_ZONES = [
-    { id:'dz1', name:'Степовий рубіж', icon:'🌾', unit:'infantry', amount:15, seconds:30, costFuel:5, costSteel:5 },
-    { id:'dz2', name:'Прикордонний пост', icon:'🚧', unit:'infantry', amount:25, seconds:60, costFuel:10, costSteel:10 },
-    { id:'dz3', name:'Танковий полігон', icon:'🏭', unit:'armor', amount:8, seconds:60, costFuel:20, costSteel:15 },
-    { id:'dz4', name:'Артилерійська позиція', icon:'⛰️', unit:'arty', amount:5, seconds:75, costFuel:30, costSteel:20 },
-    { id:'dz5', name:'Польовий аеродром', icon:'🛬', unit:'air', amount:3, seconds:90, costFuel:45, costSteel:30 }
+  // --- BATTLE LOCATIONS (PvE): відправляєш військо проти гарнізону-бота, гра рахує бій ---
+  // garrison — сумарна "сила" ворожого гарнізону (порівнюється з attackPower відправленого загону).
+  // Кожна наступна локація відкривається лише після перемоги над попередньою.
+  const LOCATIONS = [
+    { id:'loc1', name:'Степовий рубіж',            icon:'🌾', garrison:30,   seconds:20, costFuel:5,   costSteel:5,   rewardFuel:25,   rewardSteel:20 },
+    { id:'loc2', name:'Прикордонний пост',         icon:'🚧', garrison:70,   seconds:25, costFuel:10,  costSteel:10,  rewardFuel:45,   rewardSteel:35 },
+    { id:'loc3', name:'Покинуте село',             icon:'🏚️', garrison:140,  seconds:30, costFuel:18,  costSteel:15,  rewardFuel:80,   rewardSteel:65 },
+    { id:'loc4', name:'Танковий полігон',          icon:'🏭', garrison:250,  seconds:35, costFuel:28,  costSteel:24,  rewardFuel:140,  rewardSteel:115 },
+    { id:'loc5', name:'Артилерійська позиція',     icon:'⛰️', garrison:420,  seconds:40, costFuel:42,  costSteel:36,  rewardFuel:230,  rewardSteel:190 },
+    { id:'loc6', name:'Мостова переправа',         icon:'🌉', garrison:650,  seconds:45, costFuel:60,  costSteel:52,  rewardFuel:360,  rewardSteel:300 },
+    { id:'loc7', name:'Покинутий завод',           icon:'🏗️', garrison:950,  seconds:50, costFuel:85,  costSteel:75,  rewardFuel:540,  rewardSteel:450 },
+    { id:'loc8', name:'Гірський прохід',           icon:'🏔️', garrison:1400, seconds:55, costFuel:120, costSteel:105, rewardFuel:820,  rewardSteel:680 },
+    { id:'loc9', name:'Аеродром противника',       icon:'🛬', garrison:2050, seconds:60, costFuel:165, costSteel:145, rewardFuel:1250, rewardSteel:1050 },
+    { id:'loc10', name:'Укріплений район "Фенікс"', icon:'☠️', garrison:3000, seconds:70, costFuel:230, costSteel:200, rewardFuel:1900, rewardSteel:1600 }
   ];
 
   // --- PRIZE OBJECTS: вкладаєш ресурси, чекаєш, шанс на джекпот ---
@@ -263,22 +426,33 @@
   ];
 
   // --- STATE ---
-  const STORAGE_KEY = 'front_command_v1';
+  const STORAGE_KEY = 'front_command_v1_cache_' + playerId; // локальний кеш лише для миттєвого показу, поки йде запит у хмару
   let state = {
     fuel: 40, steel: 40,
     hqLevel: 1, fuelLevel: 0, steelLevel: 0, turretLevel: 0,
     lastTick: Date.now(),
     units: { infantry: 0, armor: 0, arty: 0, air: 0 },
-    deployJobs: {},   // dzId: { startedAt, finishAt }
+    battleJobs: {},   // locId: { startedAt, finishAt, sent:{infantry,armor,arty,air} } — загін в поході на локацію
     prizeJobs: {},    // pzId: { startedAt, finishAt }
-    claimedWindows: {} // "sw1-2026-08-20": true  (windowId-dateStr, вже забрано сьогодні)
+    claimedWindows: {}, // "sw1-2026-08-20": true  (windowId-дateStr, вже забрано сьогодні)
+    locationsWon: {},   // locId: true — локацію зачищено, наступна відкрита
+    playerName: 'Офіцер' // ім'я для рейтингу (беремо з Telegram, якщо доступне)
   };
-  const saved = safeLoad();
+
+  // Спершу пробуємо хмару (справжнє джерело правди), якщо немає — локальний кеш, якщо і його немає — новий гравець.
+  const cloudState = await cloudLoad();
+  const saved = cloudState || localCacheLoad();
   if(saved) state = Object.assign(state, saved);
   if(!state.claimedWindows) state.claimedWindows = {};
+  if(!state.battleJobs) state.battleJobs = {};
+  if(!state.locationsWon) state.locationsWon = {};
+  if(window.__tgFirstName) state.playerName = window.__tgFirstName; // завжди тримаємо актуальне ім'я з Telegram
 
-  function safeLoad(){ try{ const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
-  function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+  function localCacheLoad(){ try{ const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+    cloudSave(state);
+  }
 
   // Паливна база / Металургійний завод більше НЕ дають пасивний дохід щосекунди.
   // Натомість кожен рівень дає +10% до нагороди Паливо/Сталь у вікнах постачання.
@@ -292,19 +466,8 @@
   const now0 = Date.now();
   state.lastTick = now0;
 
-  // resolve any deploy/prize jobs finished while offline
+  // resolve any prize/battle jobs finished while offline (battle jobs resolved further below, once addLog exists)
   let offlineCompletions = [];
-  Object.keys(state.deployJobs).forEach(id=>{
-    const job = state.deployJobs[id];
-    if(job && now0 >= job.finishAt){
-      const zone = DEPLOY_ZONES.find(z=>z.id===id);
-      if(zone){
-        state.units[zone.unit] = (state.units[zone.unit]||0) + zone.amount;
-        offlineCompletions.push(zone.name + ': +' + zone.amount + ' ' + UNITS.find(u=>u.id===zone.unit).label);
-      }
-      delete state.deployJobs[id];
-    }
-  });
 
   const els = { log: document.getElementById('log') };
   function addLog(text, cls='new'){
@@ -325,6 +488,74 @@
   document.getElementById('popupClose').addEventListener('click', ()=>{ document.getElementById('rewardPopup').style.display='none'; });
   document.getElementById('popupOverlay').addEventListener('click', ()=>{ document.getElementById('rewardPopup').style.display='none'; });
 
+  // --- NAV TABS: перемикання сторінок (База / Карта / Рейди / Альянс) ---
+  document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
+    item.addEventListener('click', function(){
+      const page = this.dataset.page;
+      document.querySelectorAll('.nav-item[data-page]').forEach(n=>n.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById('page-'+page).classList.add('active');
+      try{ if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }catch(e){}
+      if(page === 'map') loadLeaderboard();
+    });
+  });
+
+  // --- LEADERBOARD: рейтинг командирів за "силою бази" (публічні дані з таблиці players) ---
+  // Оцінка сили = ресурси + армія (зважена бойовою силою) + прогрес будівель + зачищені локації.
+  function computeScore(s){
+    if(!s) return 0;
+    const army = armyPower(s.units || {});
+    const buildings = (s.hqLevel||1)*300 + (s.fuelLevel||0)*100 + (s.steelLevel||0)*100 + (s.turretLevel||0)*100;
+    const locs = Object.keys(s.locationsWon||{}).length * 500;
+    return Math.round((s.fuel||0) + (s.steel||0) + army*10 + buildings + locs);
+  }
+
+  let lbLoading = false;
+  async function loadLeaderboard(){
+    if(lbLoading) return;
+    lbLoading = true;
+    const btn = document.getElementById('lbRefresh');
+    const box = document.getElementById('lbContainer');
+    if(btn) btn.disabled = true;
+    try{
+      const res = await fetch(SUPABASE_URL + '/rest/v1/players?select=id,state_json&limit=200', {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+      });
+      if(!res.ok) throw new Error('bad response');
+      const rows = await res.json();
+      const list = rows
+        .map(r => ({ id: r.id, s: r.state_json || {} }))
+        .map(r => ({ id: r.id, name: r.s.playerName || 'Офіцер', score: computeScore(r.s), locs: Object.keys(r.s.locationsWon||{}).length, hq: r.s.hqLevel||1 }))
+        .sort((a,b) => b.score - a.score)
+        .slice(0, 50);
+
+      if(!list.length){
+        box.innerHTML = '<div class="lb-empty">Поки що жодного командира в базі.</div>';
+      } else {
+        let html = '';
+        list.forEach((p, i) => {
+          const me = p.id === playerId;
+          html += `
+            <div class="lb-row ${me?'me':''}">
+              <div class="lb-rank">${i+1}</div>
+              <div class="lb-info">
+                <div class="lb-name">${p.name}${me?'<span class="you-tag">ТИ</span>':''}</div>
+                <div class="lb-sub">Штаб рівня ${p.hq} · Локацій зачищено: ${p.locs}</div>
+              </div>
+              <div class="lb-score">${fmt(p.score)}</div>
+            </div>`;
+        });
+        box.innerHTML = html;
+      }
+    }catch(e){
+      box.innerHTML = '<div class="lb-empty">Не вдалося завантажити рейтинг. Можливо, у таблиці players потрібно дозволити публічне читання (SELECT policy) в Supabase.</div>';
+    }
+    if(btn) btn.disabled = false;
+    lbLoading = false;
+  }
+  document.getElementById('lbRefresh').addEventListener('click', loadLeaderboard);
+
   // resolve prize jobs offline
   Object.keys(state.prizeJobs).forEach(id=>{
     const job = state.prizeJobs[id];
@@ -333,6 +564,70 @@
       delete state.prizeJobs[id];
     }
   });
+
+  // resolve battle jobs offline
+  Object.keys(state.battleJobs).forEach(id=>{
+    const job = state.battleJobs[id];
+    if(job && now0 >= job.finishAt){
+      resolveBattle(id, true);
+    }
+  });
+
+  // --- BATTLE CALCULATOR ---
+  // attackPower = сума (кількість×сила) відправлених військ. Порівнюється з гарнізоном локації.
+  // Перемога: ratio>=1. Що більша перевага — то менші втрати й є шанс (10%) на "розгром" — бонусну нагороду.
+  // Поразка: частина відправлених військ гине пропорційно до того, наскільки бракувало сили.
+  function resolveBattle(locId, silent){
+    const job = state.battleJobs[locId];
+    const loc = LOCATIONS.find(l=>l.id===locId);
+    if(!job || !loc) return;
+    const sent = job.sent || {};
+    const attackPower = armyPower(sent);
+    const ratio = loc.garrison > 0 ? attackPower / loc.garrison : 999;
+    const won = ratio >= 1;
+
+    let survivors = {}, lost = {};
+    if(won){
+      // Що впевненіша перемога, то менші втрати: від ~35% (на межі) до ~5% (розгром).
+      const lossFrac = Math.max(0.05, Math.min(0.35, 0.35 / ratio));
+      UNITS.forEach(u=>{
+        const n = sent[u.id]||0;
+        const loss = Math.round(n * lossFrac);
+        survivors[u.id] = n - loss; lost[u.id] = loss;
+        state.units[u.id] = (state.units[u.id]||0) + survivors[u.id];
+      });
+      state.locationsWon[locId] = true;
+
+      const crit = Math.random() < 0.1; // 1 з 10 — розгром: подвійна нагорода
+      const mult = crit ? 2 : 1;
+      const fuelR = Math.round(loc.rewardFuel * mult);
+      const steelR = Math.round(loc.rewardSteel * mult);
+      state.fuel += fuelR; state.steel += steelR;
+
+      const lostTxt = Object.keys(lost).filter(k=>lost[k]>0).map(k=>'-'+lost[k]+' '+UNITS.find(u=>u.id===k).icon).join(' ');
+      if(!silent){
+        showReward(crit?'🏆':'✅', crit ? 'РОЗГРОМ! ' + loc.name : 'Перемога: ' + loc.name, '+'+fmt(fuelR)+' Паливо · +'+fmt(steelR)+' Сталь' + (lostTxt?' · Втрати: '+lostTxt:''));
+      }
+      addLog((crit?'🏆 РОЗГРОМ! ':'✅ Перемога: ') + loc.name + ' · +'+fmt(fuelR)+'П +'+fmt(steelR)+'С' + (lostTxt?' · втрати '+lostTxt:''), 'gold');
+    } else {
+      // Поразка: чим менше було сили відносно гарнізону, тим більші втрати (30–70%).
+      const lossFrac = Math.max(0.3, Math.min(0.7, 0.7 * (1 - ratio)));
+      UNITS.forEach(u=>{
+        const n = sent[u.id]||0;
+        const loss = Math.round(n * lossFrac);
+        survivors[u.id] = n - loss; lost[u.id] = loss;
+        state.units[u.id] = (state.units[u.id]||0) + survivors[u.id];
+      });
+      const lostTxt = Object.keys(lost).filter(k=>lost[k]>0).map(k=>'-'+lost[k]+' '+UNITS.find(u=>u.id===k).icon).join(' ');
+      if(!silent){
+        showReward('❌', 'Поразка: ' + loc.name, 'Гарнізон сильніший. ' + (lostTxt?'Втрати: '+lostTxt:'Загін відступив.'));
+      }
+      addLog('❌ Поразка: ' + loc.name + (lostTxt?' · втрати '+lostTxt:''), 'danger');
+    }
+
+    delete state.battleJobs[locId];
+    return won;
+  }
 
   function resolvePrize(pzId, silent){
     const zone = PRIZE_ZONES.find(z=>z.id===pzId);
@@ -444,72 +739,169 @@
     });
   }
 
-  // --- DEPLOY ZONES RENDER ---
-  function renderDeployZones(){
+  // --- BATTLE LOCATIONS RENDER ---
+  function renderLocations(){
     let html='';
     const nowT = Date.now();
-    DEPLOY_ZONES.forEach(z=>{
-      const job = state.deployJobs[z.id];
-      const unitLabel = UNITS.find(u=>u.id===z.unit).label + ' ' + UNITS.find(u=>u.id===z.unit).icon;
+    LOCATIONS.forEach((loc, idx)=>{
+      const job = state.battleJobs[loc.id];
+      const won = !!state.locationsWon[loc.id];
+      const unlocked = idx === 0 || !!state.locationsWon[LOCATIONS[idx-1].id];
+
       if(job){
         const remain = Math.max(0, job.finishAt - nowT);
         const total = job.finishAt - job.startedAt;
         const pct = 100 - Math.round((remain/total)*100);
         const secLeft = Math.ceil(remain/1000);
+        const rushCost = rushCostFuel(remain);
+        const canRush = secLeft > 0 && state.fuel >= rushCost;
         html += `
-          <div class="card">
-            <div class="card-icon">${z.icon}</div>
-            <div class="card-info">
-              <div class="card-name">${z.name}</div>
-              <div class="card-desc">Формується: ${unitLabel} ×${z.amount}</div>
-              <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
-              <div class="timer-text">${secLeft > 0 ? 'Залишилось: '+secLeft+' сек' : 'Готово!'}</div>
+          <div class="loc-card">
+            <div class="loc-top">
+              <div class="loc-icon">${loc.icon}</div>
+              <div class="loc-info">
+                <div class="loc-name">${loc.name}</div>
+                <div class="loc-desc">Бій триває... загін наступає на гарнізон (сила ${fmt(loc.garrison)})</div>
+                <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
+                <div class="timer-text">${secLeft > 0 ? 'Залишилось: '+secLeft+' сек' : 'Бій завершено!'}</div>
+              </div>
+              <button class="loc-btn" data-collect="${loc.id}" ${secLeft>0?'disabled':''}>${secLeft>0?'⏳':'Підсумок'}</button>
             </div>
-            <button class="card-btn deploy" data-collect="${z.id}" ${secLeft>0?'disabled':''}>${secLeft>0?'⏳':'Забрати'}</button>
+            ${secLeft>0?`<button class="rush-btn" data-rush="${loc.id}" ${canRush?'':'disabled'}>⚡ Прискорити за ${rushCost} Паливо</button>`:''}
+          </div>`;
+      } else if(!unlocked){
+        html += `
+          <div class="loc-card locked">
+            <div class="loc-top">
+              <div class="loc-icon">🔒</div>
+              <div class="loc-info">
+                <div class="loc-name">${loc.name}</div>
+                <div class="loc-desc">Заблоковано — спершу візьми "${LOCATIONS[idx-1].name}"</div>
+              </div>
+            </div>
           </div>`;
       } else {
-        const canAfford = state.fuel >= z.costFuel && state.steel >= z.costSteel;
+        const canAfford = state.fuel >= loc.costFuel && state.steel >= loc.costSteel;
         html += `
-          <div class="card">
-            <div class="card-icon">${z.icon}</div>
-            <div class="card-info">
-              <div class="card-name">${z.name}</div>
-              <div class="card-desc">Дає: ${unitLabel} ×${z.amount} за ${z.seconds} сек</div>
-              <div class="card-level">Вартість: ${z.costFuel} Паливо / ${z.costSteel} Сталь</div>
+          <div class="loc-card ${won?'won':''}">
+            <div class="loc-top">
+              <div class="loc-icon">${loc.icon}</div>
+              <div class="loc-info">
+                <div class="loc-name">${loc.name} ${won?'<span class="loc-badge won">Зачищено</span>':''}</div>
+                <div class="loc-desc">Гарнізон: ${fmt(loc.garrison)} сили · Похід ${loc.seconds} сек</div>
+                <div class="loc-power"><span class="lbl">Нагорода:</span> +${fmt(loc.rewardFuel)} Паливо · +${fmt(loc.rewardSteel)} Сталь · Вартість: ${loc.costFuel}П/${loc.costSteel}С</div>
+              </div>
+              <button class="loc-btn" data-attack="${loc.id}" ${!canAfford?'disabled':''}>${won?'Атакувати ще':'Атакувати'}</button>
             </div>
-            <button class="card-btn deploy" data-deploy="${z.id}" ${!canAfford?'disabled':''}>Відправити</button>
           </div>`;
       }
     });
     document.getElementById('deployContainer').innerHTML = html;
 
-    document.querySelectorAll('[data-deploy]').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        const zone = DEPLOY_ZONES.find(z=>z.id===this.dataset.deploy);
-        if(!zone) return;
-        if(state.fuel>=zone.costFuel && state.steel>=zone.costSteel){
-          state.fuel -= zone.costFuel; state.steel -= zone.costSteel;
-          const t0 = Date.now();
-          state.deployJobs[zone.id] = { startedAt: t0, finishAt: t0 + zone.seconds*1000 };
-          addLog('🪖 Загін відправлено: ' + zone.name);
-          renderAll(); save();
-        }
-      });
+    document.querySelectorAll('[data-attack]').forEach(btn=>{
+      btn.addEventListener('click', function(){ openAttackModal(this.dataset.attack); });
     });
     document.querySelectorAll('[data-collect]').forEach(btn=>{
       btn.addEventListener('click', function(){
-        const zone = DEPLOY_ZONES.find(z=>z.id===this.dataset.collect);
-        if(!zone) return;
-        const job = state.deployJobs[zone.id];
+        const locId = this.dataset.collect;
+        const job = state.battleJobs[locId];
         if(job && Date.now() >= job.finishAt){
-          state.units[zone.unit] = (state.units[zone.unit]||0) + zone.amount;
-          delete state.deployJobs[zone.id];
-          addLog('✅ Прибуло підкріплення: ' + zone.name);
+          resolveBattle(locId, false);
           renderAll(); save();
         }
       });
     });
+    document.querySelectorAll('[data-rush]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const locId = this.dataset.rush;
+        const job = state.battleJobs[locId];
+        if(!job) return;
+        const remain = Math.max(0, job.finishAt - Date.now());
+        const rushCost = rushCostFuel(remain);
+        if(state.fuel < rushCost) return;
+        state.fuel -= rushCost;
+        job.finishAt = Date.now(); // бій завершено миттєво, гравець сам тисне "Підсумок"
+        addLog('⚡ Похід прискорено за ' + rushCost + ' Паливо');
+        renderAll(); save();
+      });
+    });
   }
+
+  // Вартість прискорення бою: пропорційна до часу, що лишився. Мінімум 5 Пального.
+  function rushCostFuel(remainMs){
+    return Math.max(5, Math.round((remainMs/1000) * 1.5));
+  }
+
+  // --- ATTACK MODAL: обираєш скільки якого війська відправити, бачиш живий калькулятор сили ---
+  let modalSelection = { infantry:0, armor:0, arty:0, air:0 };
+  function openAttackModal(locId){
+    const loc = LOCATIONS.find(l=>l.id===locId);
+    if(!loc) return;
+    modalSelection = { infantry:0, armor:0, arty:0, air:0 };
+    renderAttackModal(loc);
+    document.getElementById('attackModalWrap').style.display = 'block';
+  }
+  function closeAttackModal(){
+    document.getElementById('attackModalWrap').style.display = 'none';
+  }
+  function renderAttackModal(loc){
+    const attackPower = armyPower(modalSelection);
+    const ratio = attackPower / loc.garrison;
+    const pct = Math.max(4, Math.min(100, Math.round(ratio*100)));
+    const barColor = ratio>=1.3 ? 'var(--olive)' : (ratio>=1 ? 'var(--gold)' : 'var(--danger)');
+    const verdict = ratio>=1.3 ? 'Впевнена перевага — мінімальні втрати' : ratio>=1 ? 'Ледь достатньо — можливі відчутні втрати' : 'Недостатньо сили — велика ймовірність поразки';
+
+    let rows = '';
+    UNITS.forEach(u=>{
+      const owned = state.units[u.id]||0;
+      const val = modalSelection[u.id];
+      rows += `
+        <div class="stepper-row">
+          <div class="u-icon">${u.icon}</div>
+          <div class="u-label">${u.label}<div class="u-owned">є: ${fmt(owned)} · сила ${UNIT_POWER[u.id]}/од.</div></div>
+          <button class="stepper-btn" data-step="${u.id}" data-dir="-1" ${val<=0?'disabled':''}>−</button>
+          <div class="stepper-val">${val}</div>
+          <button class="stepper-btn" data-step="${u.id}" data-dir="1" ${val>=owned?'disabled':''}>+</button>
+        </div>`;
+    });
+
+    document.getElementById('attackModal').innerHTML = `
+      <h3>${loc.icon} ${loc.name}</h3>
+      <div class="modal-sub">Гарнізон противника: ${fmt(loc.garrison)} сили. Обери, кого відправити в бій.</div>
+      ${rows}
+      <div class="power-compare">
+        Сила загону: <b>${fmt(attackPower)}</b> проти <b>${fmt(loc.garrison)}</b>
+        <div class="ratio-bar"><div class="ratio-fill" style="width:${pct}%; background:${barColor};"></div></div>
+        <div style="margin-top:5px; color:${barColor};">${verdict}</div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-cancel" id="attackCancel">Скасувати</button>
+        <button class="modal-attack" id="attackConfirm" ${attackPower<=0?'disabled':''}>Відправити (${loc.costFuel}П/${loc.costSteel}С)</button>
+      </div>`;
+
+    document.getElementById('attackCancel').addEventListener('click', closeAttackModal);
+    document.querySelectorAll('[data-step]').forEach(btn=>{
+      btn.addEventListener('click', function(){
+        const uid = this.dataset.step, dir = parseInt(this.dataset.dir,10);
+        const owned = state.units[uid]||0;
+        modalSelection[uid] = Math.max(0, Math.min(owned, modalSelection[uid] + dir));
+        renderAttackModal(loc);
+      });
+    });
+    document.getElementById('attackConfirm').addEventListener('click', function(){
+      if(state.fuel < loc.costFuel || state.steel < loc.costSteel) return;
+      const sent = Object.assign({}, modalSelection);
+      if(armyPower(sent) <= 0) return;
+      UNITS.forEach(u=>{ state.units[u.id] = (state.units[u.id]||0) - (sent[u.id]||0); });
+      state.fuel -= loc.costFuel; state.steel -= loc.costSteel;
+      const t0 = Date.now();
+      state.battleJobs[loc.id] = { startedAt: t0, finishAt: t0 + loc.seconds*1000, sent };
+      addLog('⚔️ Загін атакує: ' + loc.name);
+      closeAttackModal();
+      renderAll(); save();
+    });
+  }
+  document.getElementById('attackModalOverlay').addEventListener('click', closeAttackModal);
 
   // --- PRIZE ZONES RENDER ---
   function renderPrizeZones(){
@@ -621,7 +1013,7 @@
   function renderAll(){
     renderResourceBar();
     renderSupplyWindows();
-    renderDeployZones();
+    renderLocations();
     renderPrizeZones();
     renderBuildings();
   }
